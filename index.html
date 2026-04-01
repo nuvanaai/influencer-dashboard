@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="3600">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Command Center">
+  <meta name="theme-color" content="#faf9f7">
+  <title>Cata Freer — Command Center</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#fce7f3', 100: '#fce7f3', 200: '#fbcfe8', 500: '#ec4899', 600: '#db2777', 700: '#be185d' },
+            luvana: { 50: '#dbeafe', 100: '#dbeafe', 200: '#bfdbfe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            storytime: { 50: '#dcfce7', 100: '#dcfce7', 200: '#bbf7d0', 500: '#22c55e', 600: '#16a34a', 700: '#166534' },
+            restaurant: { 50: '#ffedd5', 100: '#ffedd5', 200: '#fed7aa', 500: '#f97316', 600: '#ea580c', 700: '#9a3412' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #faf9f7; }
+    .kanban-col { min-height: 200px; }
+    @media (min-width: 1024px) { .kanban-col { min-height: calc(100vh - 280px); } }
+    .card { transition: all 0.2s ease; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+    .filter-btn.active { background: #8b5cf6 !important; color: white !important; }
+    .biz-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .deadline-soon { animation: pulse-border 2s infinite; }
+    @keyframes pulse-border { 0%, 100% { border-color: #f43f5e; } 50% { border-color: #fda4af; } }
+    .hidden { display: none !important; }
+    .main-tab.active { background: #ede9fe !important; color: #6d28d9 !important; box-shadow: none; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+    .stat-clickable { cursor: pointer; transition: all 0.15s; }
+    .stat-clickable:hover { text-decoration: underline; opacity: 0.8; }
+
+    /* Mobile responsive fixes */
+    @media (max-width: 768px) {
+      header { padding: 12px 16px !important; }
+      header .max-w-\[1600px\] { flex-direction: column; align-items: flex-start; gap: 12px; }
+      header .flex.items-center.gap-6 { flex-direction: column; align-items: flex-start; gap: 8px; width: 100%; }
+      .tab-scroll-container {
+        overflow-x: auto; -webkit-overflow-scrolling: touch;
+        width: 100%; max-width: 100vw; padding-bottom: 4px;
+        scrollbar-width: none; -ms-overflow-style: none;
+      }
+      .tab-scroll-container::-webkit-scrollbar { display: none; }
+      .main-tab { flex-shrink: 0; padding: 8px 12px !important; font-size: 13px !important; white-space: nowrap; }
+      header .flex.items-center.gap-4:last-child { display: none; }
+      .bg-white.border-b.border-stone-100.px-6.py-3 { padding: 8px 16px !important; }
+
+      /* Stats bar: 2x2 grid on mobile */
+      .stats-bar-inner {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        align-items: center;
+      }
+      .stats-bar-inner .stats-divider { display: none; }
+      .stats-bar-inner .stat-item { justify-content: center; }
+      .stats-bar-inner .stat-item .text-2xl { font-size: 1.25rem !important; }
+
+      /* Kanban horizontal scroll on mobile */
+      .kanban-mobile-scroll {
+        display: flex !important;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding-bottom: 16px;
+        scrollbar-width: none;
+      }
+      .kanban-mobile-scroll::-webkit-scrollbar { display: none; }
+      .kanban-mobile-scroll > .kanban-col {
+        min-width: 85vw;
+        scroll-snap-align: start;
+        flex-shrink: 0;
+      }
+
+      /* Sidebar moves above kanban on mobile */
+      .deals-layout { flex-direction: column-reverse !important; }
+      .deals-sidebar { width: 100% !important; }
+      .deals-sidebar > div { margin-bottom: 0; }
+
+      /* Growth tab mobile */
+      #tab-growth .max-w-\[1600px\] { padding: 16px !important; }
+      #tab-growth .grid.grid-cols-2 { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+      #tab-growth .grid.grid-cols-2 > div:last-child { grid-column: span 2; }
+      #tab-growth .grid.grid-cols-2 p.text-2xl { font-size: 1.25rem !important; }
+      #tab-growth .grid.grid-cols-2 p.text-lg { font-size: 0.95rem !important; }
+      .growth-sub { flex-shrink: 0; white-space: nowrap; padding: 8px 12px !important; font-size: 12px !important; }
+      #growth-competitors .flex.items-center.justify-between { flex-direction: column; align-items: flex-start; gap: 8px; }
+      #growth-competitors .overflow-x-auto { margin: 0 -16px; padding: 0 16px; }
+      #growth-competitors table { font-size: 12px; min-width: 900px; }
+      #growth-competitors th, #growth-competitors td { padding: 8px 6px !important; }
+      #growth-calendar .flex.items-center.justify-between { flex-direction: column; align-items: flex-start; gap: 8px; }
+      #growth-calendar .flex.gap-2 { overflow-x: auto; width: 100%; padding-bottom: 4px; }
+      .week-filter { flex-shrink: 0; white-space: nowrap; }
+      #growth-scripts .grid { grid-template-columns: 1fr !important; }
+      #growth-strategy .grid { grid-template-columns: 1fr !important; }
+      #growth-strategy .lg\:col-span-2 { grid-column: span 1 !important; }
+      #growth-strategy .grid.grid-cols-1.md\:grid-cols-3 { grid-template-columns: 1fr !important; }
+      #growth-watchlist .grid { grid-template-columns: 1fr !important; }
+      #growth-pitches pre { font-size: 13px !important; }
+
+      /* Calendar tab mobile */
+      .cal-day-header { font-size: 10px !important; padding: 6px 2px !important; }
+      .cal-day-header .full-day { display: none; }
+      .cal-day-header .short-day { display: inline !important; }
+      #cal-grid > div { min-height: 60px !important; padding: 2px !important; }
+      #cal-grid .text-sm { font-size: 11px !important; }
+      #cal-grid .text-\[10px\] { font-size: 9px !important; }
+      .cal-legend { display: none; }
+
+      /* Content calendar mobile */
+      .content-cal-day-header { font-size: 10px !important; padding: 6px 2px !important; }
+      .content-cal-day-header .full-day { display: none; }
+      .content-cal-day-header .short-day { display: inline !important; }
+      #content-cal-grid > div { min-height: 60px !important; padding: 2px !important; }
+      #content-cal-grid .text-sm { font-size: 11px !important; }
+      #content-cal-grid .text-\[10px\] { font-size: 9px !important; }
+
+      /* Revenue table horizontal scroll */
+      .rev-table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .rev-table-wrapper table { min-width: 600px; }
+
+      /* General mobile fixes for all tabs */
+      .px-6 { padding-left: 16px !important; padding-right: 16px !important; }
+      .max-w-\[1600px\] { padding-left: 0; padding-right: 0; }
+      .flex.items-center.gap-4.lg\:gap-8 { gap: 8px !important; flex-wrap: nowrap; overflow-x: auto; }
+
+      /* Outreach cards mobile */
+      .outreach-card-grid { grid-template-columns: 1fr !important; }
+
+      /* Filter tabs scrollable on mobile */
+      .filter-bar-inner { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap !important; }
+      .filter-bar-inner::-webkit-scrollbar { display: none; }
+      .filter-bar-inner .filter-btn { flex-shrink: 0; white-space: nowrap; }
+
+      /* Inbox view mobile */
+      .inbox-row .inbox-desc { max-width: 120px; }
+      .inbox-row .inbox-actions { flex-direction: column; align-items: flex-end; gap: 4px; }
+      .inbox-expanded { padding: 12px !important; }
+
+      /* Rates tab mobile */
+      #tab-rates .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr 1fr !important; }
+      #tab-rates .grid.grid-cols-2.md\:grid-cols-5 { grid-template-columns: repeat(2, 1fr) !important; }
+      #tab-rates .grid.grid-cols-2.md\:grid-cols-5 > div:last-child { grid-column: span 2; }
+      #tab-rates .lg\:col-span-2 { grid-column: span 1 !important; }
+      #tab-rates .grid.grid-cols-1.lg\:grid-cols-3 { grid-template-columns: 1fr !important; }
+    }
+
+    @media (max-width: 480px) {
+      h1.text-2xl { font-size: 1.25rem !important; }
+      .main-tab { padding: 6px 10px !important; font-size: 12px !important; }
+      #tab-growth .grid.grid-cols-2 p.text-2xl { font-size: 1.1rem !important; }
+      .growth-sub { padding: 6px 10px !important; font-size: 11px !important; }
+      #tab-rates .grid.grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 { grid-template-columns: 1fr !important; }
+      .kanban-mobile-scroll > .kanban-col { min-width: 90vw; }
+    }
+
+    /* Inbox View styles */
+    .inbox-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f5f5f4;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .inbox-row:hover { background: #faf5ff; }
+    .inbox-row.expanded { background: #faf5ff; border-left: 3px solid #8b5cf6; }
+    .inbox-status-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .inbox-expanded {
+      padding: 16px 16px 16px 38px;
+      border-bottom: 1px solid #e7e5e4;
+      background: #fafaf9;
+      animation: slideDown 0.15s ease;
+    }
+    @keyframes slideDown { from { opacity: 0; max-height: 0; } to { opacity: 1; max-height: 500px; } }
+    .inbox-group-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #faf9f7;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #57534e;
+      border-bottom: 2px solid #e7e5e4;
+    }
+    .inbox-new-dot { width: 8px; height: 8px; border-radius: 50%; background: #f97316; flex-shrink: 0; }
+    .view-toggle-btn { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; transition: all 0.15s; border: 1px solid transparent; }
+    .view-toggle-btn.active { background: #ede9fe; color: #6d28d9; border-color: #c4b5fd; }
+    .view-toggle-btn:not(.active) { background: #f5f5f4; color: #78716c; }
+    .view-toggle-btn:not(.active):hover { background: #e7e5e4; }
+  </style>
+</head>
+<body class="min-h-screen" style="background:#faf9f7;">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-stone-100 px-6 py-4">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <div>
+          <h1 class="text-2xl font-bold text-stone-800">Command Center</h1>
+          <p class="text-sm text-stone-400" id="last-updated">Loading...</p>
+          <button onclick="location.reload()" class="mt-1 text-xs text-violet-500 hover:text-violet-700 flex items-center gap-1 font-medium">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            Refresh now
+          </button>
+        </div>
+        <!-- Main Tabs -->
+        <div class="tab-scroll-container flex items-center gap-1 bg-stone-50 rounded-xl p-1">
+          <button class="main-tab active px-4 py-2 rounded-lg text-sm font-medium transition-all" data-tab="deals" onclick="switchTab('deals')">
+            💼 Deals
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="growth" onclick="switchTab('growth')">
+            🚀 Growth
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="outreach" onclick="switchTab('outreach')">
+            📬 Outreach
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="revenue" onclick="switchTab('revenue')">
+            💰 Revenue
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="calendar" onclick="switchTab('calendar')">
+            📅 Calendar
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="rates" onclick="switchTab('rates')">
+            📋 Rates
+          </button>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="text-right">
+          <p class="text-sm font-medium text-stone-700">Cata Freer</p>
+          <p class="text-xs text-stone-400">@catafreer</p>
+        </div>
+        <div class="w-10 h-10 bg-gradient-to-br from-rose-300 to-violet-300 rounded-full flex items-center justify-center text-white font-bold text-sm">CF</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DEALS TAB -->
+  <div id="tab-deals">
+
+  <!-- Stats Bar -->
+  <div class="bg-white border-b border-stone-100 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto stats-bar-inner flex items-center gap-4 lg:gap-8">
+      <div class="stat-item flex items-center gap-2 flex-shrink-0">
+        <span class="text-2xl font-bold text-violet-500" id="stat-deals">0</span>
+        <span class="text-sm text-stone-400">Active Deals</span>
+      </div>
+      <div class="stats-divider w-px h-8 bg-stone-200"></div>
+      <div class="stat-item flex items-center gap-2">
+        <span class="text-2xl font-bold text-emerald-500" id="stat-revenue">$0</span>
+        <span class="text-sm text-stone-400">Potential Revenue</span>
+      </div>
+      <div class="stats-divider w-px h-8 bg-stone-200"></div>
+      <div class="stat-item flex items-center gap-2 stat-clickable" onclick="filterByColumn('confirmed')" title="Click to filter to Confirmed">
+        <span class="text-2xl font-bold text-emerald-600" id="stat-closed">0</span>
+        <span class="text-sm text-stone-400">Confirmed</span>
+      </div>
+      <div class="stats-divider w-px h-8 bg-stone-200"></div>
+      <div class="stat-item flex items-center gap-2 stat-clickable" onclick="filterByColumn('follow_up')" title="Click to filter to Follow Up">
+        <span class="text-2xl font-bold text-amber-500" id="stat-pending">0</span>
+        <span class="text-sm text-stone-400">Pending Replies</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Toggle + Filter Tabs -->
+  <div class="bg-white border-b border-stone-100 px-6 py-3">
+    <div class="max-w-[1600px] mx-auto flex items-center gap-4 flex-wrap">
+      <!-- View Toggle -->
+      <div class="flex items-center gap-1 bg-stone-100 rounded-lg p-1">
+        <button class="view-toggle-btn" id="view-btn-inbox" onclick="switchDealView('inbox')">
+          <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>Inbox
+        </button>
+        <button class="view-toggle-btn" id="view-btn-board" onclick="switchDealView('board')">
+          <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7"></path></svg>Board
+        </button>
+      </div>
+      <div class="h-6 w-px bg-stone-200"></div>
+      <!-- Filter Buttons -->
+      <div class="filter-bar-inner flex items-center gap-2 flex-wrap">
+        <button class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium" data-filter="all" style="background:#8b5cf6;color:white;">All</button>
+        <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-pink-50 text-pink-700 hover:bg-pink-100" data-filter="brand">
+          <span class="biz-dot bg-pink-400 mr-1.5"></span>Personal Brand
+        </button>
+        <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-blue-50 text-blue-700 hover:bg-blue-100" data-filter="nuvana">
+          <span class="biz-dot bg-blue-400 mr-1.5"></span>Nuvana
+        </button>
+        <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-green-50 text-green-700 hover:bg-green-100" data-filter="storytime">
+          <span class="biz-dot bg-green-400 mr-1.5"></span>Storytime
+        </button>
+        <button class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium bg-orange-50 text-orange-700 hover:bg-orange-100" data-filter="restaurant">
+          <span class="biz-dot bg-orange-400 mr-1.5"></span>Restaurant
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-[1600px] mx-auto px-4 lg:px-6 py-6 flex flex-col lg:flex-row gap-6 deals-layout">
+
+    <!-- Inbox View (default) -->
+    <div class="flex-1" id="inbox-view">
+      <!-- Search -->
+      <div class="mb-4">
+        <input type="text" id="inbox-search" placeholder="Search deals..." class="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-200" oninput="renderInboxView()">
+      </div>
+      <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);" id="inbox-list">
+      </div>
+    </div>
+
+    <!-- Kanban Board (hidden by default) -->
+    <div class="flex-1 kanban-mobile-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 hidden" id="kanban-board">
+
+      <!-- To Do Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-rose-300"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">To Do</h2>
+          <span class="text-xs bg-rose-100 text-rose-600 px-2 py-0.5 rounded-full font-medium" id="count-todo">0</span>
+        </div>
+        <div class="space-y-3" id="col-todo"></div>
+      </div>
+
+      <!-- In Progress Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-amber-300"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">In Progress</h2>
+          <span class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-medium" id="count-in_progress">0</span>
+        </div>
+        <div class="space-y-3" id="col-in_progress"></div>
+      </div>
+
+      <!-- Follow Up Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-sky-300"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">Follow Up</h2>
+          <span class="text-xs bg-sky-100 text-sky-600 px-2 py-0.5 rounded-full font-medium" id="count-follow_up">0</span>
+        </div>
+        <div class="space-y-3" id="col-follow_up"></div>
+      </div>
+
+      <!-- Done Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-emerald-300"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">Done</h2>
+          <span class="text-xs bg-emerald-100 text-emerald-600 px-2 py-0.5 rounded-full font-medium" id="count-done">0</span>
+        </div>
+        <div class="space-y-3" id="col-done"></div>
+      </div>
+
+      <!-- Confirmed Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-green-400"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">Confirmed</h2>
+          <span class="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-medium" id="count-confirmed">0</span>
+        </div>
+        <div class="space-y-3" id="col-confirmed"></div>
+      </div>
+
+      <!-- Sent Column -->
+      <div class="kanban-col">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-3 h-3 rounded-full bg-violet-300"></div>
+          <h2 class="font-semibold text-stone-600 text-sm uppercase tracking-wide">Sent</h2>
+          <span class="text-xs bg-violet-100 text-violet-600 px-2 py-0.5 rounded-full font-medium" id="count-sent">0</span>
+        </div>
+        <div class="space-y-3" id="col-sent"></div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="w-full lg:w-72 flex-shrink-0 space-y-6 deals-sidebar">
+
+      <!-- Upcoming Events -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-semibold text-stone-700 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          Upcoming
+        </h3>
+        <div class="space-y-3" id="events-list"></div>
+      </div>
+
+      <!-- Upcoming Meetings -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-semibold text-stone-700 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          Upcoming Meetings
+        </h3>
+        <div class="space-y-3">
+
+          <!-- Meeting 1: Fenton Models -->
+          <div class="p-3 rounded-xl bg-violet-50 border border-violet-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-violet-600 bg-violet-100 px-2 py-0.5 rounded-full">Mon Mar 30</span>
+              <span class="text-xs font-medium text-stone-500">12:00 PM</span>
+            </div>
+            <p class="text-sm font-semibold text-stone-800 mb-0.5">Fenton Models</p>
+            <p class="text-xs text-stone-500 mb-1">Meeting with <span class="font-medium text-stone-600">Wendy</span> — Owner &amp; Director</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=207+East+63rd+Street+Suite+1W+New+York+NY+10065" target="_blank" class="text-xs text-violet-500 hover:text-violet-700 hover:underline flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              207 E 63rd St, Suite 1W, NY 10065
+            </a>
+          </div>
+
+          <!-- Meeting 2: ONE Management -->
+          <div class="p-3 rounded-xl bg-sky-50 border border-sky-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-sky-600 bg-sky-100 px-2 py-0.5 rounded-full">Mon Mar 30</span>
+              <span class="text-xs font-medium text-stone-500">3:30 PM</span>
+            </div>
+            <p class="text-sm font-semibold text-stone-800 mb-0.5">ONE Management</p>
+            <p class="text-xs text-stone-500 mb-1">Meeting with <span class="font-medium text-stone-600">Jakub</span> — Dir. of Scouting &amp; Dev NY</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=42+Bond+Street+2nd+Floor+New+York+NY+10012" target="_blank" class="text-xs text-sky-500 hover:text-sky-700 hover:underline flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              42 Bond St, 2nd Fl, NY 10012
+            </a>
+          </div>
+
+          <!-- Meeting 3: Curve Management -->
+          <div class="p-3 rounded-xl bg-rose-50 border border-rose-100">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-rose-600 bg-rose-100 px-2 py-0.5 rounded-full">Wed Apr 1</span>
+              <span class="text-xs font-medium text-stone-500">3:30 PM</span>
+            </div>
+            <p class="text-sm font-semibold text-stone-800 mb-0.5">Curve Management</p>
+            <p class="text-xs text-stone-500 mb-1">Meeting contact <span class="font-medium text-stone-600">TBD</span></p>
+            <a href="https://www.google.com/maps/search/?api=1&query=99+Madison+Ave+5th+Floor+New+York+NY" target="_blank" class="text-xs text-rose-500 hover:text-rose-700 hover:underline flex items-center gap-1">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+              99 Madison Ave, 5th Fl, NY
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-semibold text-stone-700 mb-4 flex items-center gap-2">
+          <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+          Platform Stats
+        </h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="text-stone-400">IG Followers</span>
+            <span class="font-semibold text-stone-700">302.4K</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-stone-400">TikTok Followers</span>
+            <span class="font-semibold text-stone-700">700K</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-stone-400">Combined Reach</span>
+            <span class="font-semibold text-violet-500">1M+</span>
+          </div>
+          <div class="border-t border-stone-100 pt-3 flex justify-between">
+            <span class="text-stone-400">IG Engagement</span>
+            <span class="font-semibold text-amber-500">1.57%</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-stone-400">IG Growth (30d)</span>
+            <span class="font-semibold text-rose-500">-402</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Businesses Legend -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-semibold text-stone-700 mb-3">Businesses</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center gap-2"><span class="biz-dot bg-pink-400"></span><span class="text-stone-500">Personal Brand</span></div>
+          <div class="flex items-center gap-2"><span class="biz-dot bg-blue-400"></span><span class="text-stone-500">Nuvana</span></div>
+          <div class="flex items-center gap-2"><span class="biz-dot bg-green-400"></span><span class="text-stone-500">Storytime</span></div>
+          <div class="flex items-center gap-2"><span class="biz-dot bg-orange-400"></span><span class="text-stone-500">Restaurant</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- end tab-deals -->
+
+  <!-- GROWTH TAB -->
+  <div id="tab-growth" style="display:none;">
+    <div class="max-w-[1600px] mx-auto px-6 py-6">
+
+      <!-- Growth Stats Bar -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-4 border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide">IG Followers</p>
+          <p class="text-2xl font-bold text-violet-500" id="growth-ig-followers">302,408</p>
+          <p class="text-xs text-rose-500">-402 last 30 days</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide">TikTok Followers</p>
+          <p class="text-2xl font-bold text-violet-500" id="growth-tt-followers">~700K</p>
+          <p class="text-xs text-stone-400">Views down 8.2%</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide">IG Engagement</p>
+          <p class="text-2xl font-bold text-amber-500" id="growth-engagement">1.57%</p>
+          <p class="text-xs text-stone-400">Industry avg: 0.48%</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide">Brand Deals</p>
+          <p class="text-2xl font-bold text-emerald-500">39</p>
+          <p class="text-xs text-stone-400">Career total</p>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide">Closest Comp</p>
+          <p class="text-lg font-bold text-rose-500">@valegenta</p>
+          <p class="text-xs text-stone-400">55 deals, similar profile</p>
+        </div>
+      </div>
+
+      <!-- Sub-tabs for Growth sections -->
+      <div class="flex items-center gap-2 mb-6 overflow-x-auto">
+        <button class="growth-sub active px-4 py-2 rounded-lg text-sm font-medium" style="background:#ede9fe;color:#6d28d9;" onclick="switchGrowthSub('calendar')">Content Calendar</button>
+        <button class="growth-sub px-4 py-2 bg-stone-50 text-stone-400 rounded-lg text-sm font-medium hover:bg-stone-100" onclick="switchGrowthSub('competitors')">Competitor Analysis</button>
+        <button class="growth-sub px-4 py-2 bg-stone-50 text-stone-400 rounded-lg text-sm font-medium hover:bg-stone-100" onclick="switchGrowthSub('watchlist')">Creators to Watch</button>
+        <button class="growth-sub px-4 py-2 bg-stone-50 text-stone-400 rounded-lg text-sm font-medium hover:bg-stone-100" onclick="switchGrowthSub('strategy')">Posting Strategy</button>
+        <button class="growth-sub px-4 py-2 bg-stone-50 text-stone-400 rounded-lg text-sm font-medium hover:bg-stone-100" onclick="switchGrowthSub('pitches')">Pitch Templates</button>
+      </div>
+
+      <!-- COMPETITORS SUB-TAB -->
+      <div id="growth-competitors" style="display:none;">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-stone-800">Influencer Competitor Analysis</h2>
+          <div class="flex gap-2">
+            <button class="relevance-filter active px-3 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium" onclick="filterRelevance('all')">All</button>
+            <button class="relevance-filter px-3 py-1 bg-stone-50 text-stone-400 rounded-full text-xs font-medium hover:bg-stone-100" onclick="filterRelevance('HIGH')">High Relevance</button>
+            <button class="relevance-filter px-3 py-1 bg-stone-50 text-stone-400 rounded-full text-xs font-medium hover:bg-stone-100" onclick="filterRelevance('MEDIUM')">Medium</button>
+          </div>
+        </div>
+        <div class="overflow-x-auto bg-white rounded-2xl border border-stone-200" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <table class="w-full text-sm" id="competitors-table">
+            <thead>
+              <tr class="bg-stone-50 text-left">
+                <th class="px-4 py-3 font-semibold text-stone-500">Handle</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">IG</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">TikTok</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">Engagement</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">Deals</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">Niche</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">Key Differentiator</th>
+                <th class="px-4 py-3 font-semibold text-stone-500">Learn From</th>
+                <th class="px-4 py-3 font-semibold text-stone-500 w-20">Relevance</th>
+              </tr>
+            </thead>
+            <tbody id="competitors-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CONTENT CALENDAR SUB-TAB (Monthly Calendar + Scripts merged) -->
+      <div id="growth-calendar">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-3">
+          <h2 class="text-lg font-bold text-stone-800">Content Calendar</h2>
+          <div class="flex items-center gap-2">
+            <button onclick="contentCalPrev()" class="p-1 hover:bg-stone-100 rounded">
+              <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <span class="text-lg font-bold text-stone-800 min-w-[160px] text-center" id="content-cal-title">March 2026</span>
+            <button onclick="contentCalNext()" class="p-1 hover:bg-stone-100 rounded">
+              <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+        <!-- Monthly Grid -->
+        <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden mb-4" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <div class="grid grid-cols-7 bg-stone-50 border-b border-stone-200">
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Sun</span><span class="short-day" style="display:none;">S</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Mon</span><span class="short-day" style="display:none;">M</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Tue</span><span class="short-day" style="display:none;">T</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Wed</span><span class="short-day" style="display:none;">W</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Thu</span><span class="short-day" style="display:none;">T</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Fri</span><span class="short-day" style="display:none;">F</span></div>
+            <div class="content-cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Sat</span><span class="short-day" style="display:none;">S</span></div>
+          </div>
+          <div class="grid grid-cols-7" id="content-cal-grid"></div>
+        </div>
+        <!-- Day Detail Expandable -->
+        <div id="content-day-detail" class="hidden bg-white rounded-2xl border border-stone-200 p-5 mb-4" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        </div>
+      </div>
+
+      <!-- Hidden scripts grid (kept for backwards compat but merged into calendar) -->
+      <div id="growth-scripts" style="display:none;">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4" id="scripts-grid"></div>
+      </div>
+
+      <!-- POSTING STRATEGY SUB-TAB -->
+      <div id="growth-strategy" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-800 mb-4">Posting Strategy Guide</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-2xl border border-stone-200 p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-800 mb-4">Best Posting Times</h3>
+            <div class="space-y-4">
+              <div>
+                <p class="font-semibold text-rose-500 mb-1">Instagram</p>
+                <div class="text-sm text-stone-600 space-y-1" id="strategy-ig-times"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-stone-700 mb-1">TikTok</p>
+                <div class="text-sm text-stone-600 space-y-1" id="strategy-tt-times"></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-2xl border border-stone-200 p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-800 mb-4">Algorithm Cheat Sheet</h3>
+            <div class="space-y-3" id="strategy-algorithm"></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-stone-200 p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-800 mb-4">Content Pillars</h3>
+            <div class="space-y-3" id="strategy-pillars"></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-stone-200 p-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-800 mb-4">Daily Engagement Checklist</h3>
+            <div class="space-y-2" id="strategy-checklist"></div>
+          </div>
+          <div class="bg-white rounded-2xl border border-stone-200 p-6 lg:col-span-2" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-800 mb-4">Hook Formulas That Work</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="strategy-hooks"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PITCH TEMPLATES SUB-TAB -->
+      <div id="growth-pitches" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-800 mb-4">Brand Pitch Email Templates</h2>
+        <div class="space-y-4" id="pitches-list"></div>
+      </div>
+
+      <!-- CREATORS TO WATCH SUB-TAB -->
+      <div id="growth-watchlist" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-800 mb-4">Top 10 Creators to Study</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="watchlist-grid"></div>
+      </div>
+
+    </div>
+  </div><!-- end tab-growth -->
+
+  <!-- OUTREACH TAB (merged with Contacts) -->
+  <div id="tab-outreach" style="display:none;">
+    <div class="max-w-[1600px] mx-auto px-4 lg:px-6 py-6">
+
+      <!-- Outreach Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Total Contacts</p>
+          <p class="text-2xl font-bold text-violet-500" id="outreach-total">0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-rose-500 uppercase tracking-wide mb-1">Hot Leads</p>
+          <p class="text-2xl font-bold text-rose-500" id="outreach-hot">0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-amber-500 uppercase tracking-wide mb-1">Active / Sent</p>
+          <p class="text-2xl font-bold text-amber-500" id="outreach-active">0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-emerald-500 uppercase tracking-wide mb-1">Follow Up</p>
+          <p class="text-2xl font-bold text-emerald-500" id="outreach-followup">0</p>
+        </div>
+      </div>
+
+      <!-- Search + Filters -->
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <input type="text" id="outreach-search" placeholder="Search brand name..." class="px-4 py-2 rounded-xl border border-stone-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-200 w-64" oninput="renderMergedOutreach()">
+        <button class="outreach-filter active px-4 py-1.5 rounded-full text-sm font-medium bg-violet-100 text-violet-700" data-ofilter="all" onclick="filterOutreach('all')">All</button>
+        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="hot" onclick="filterOutreach('hot')">Hot</button>
+        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="active" onclick="filterOutreach('active')">Active</button>
+        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="followup" onclick="filterOutreach('followup')">Follow Up</button>
+      </div>
+
+      <!-- Card Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="outreach-cards"></div>
+
+      <!-- Dream Brands Section -->
+      <div class="mt-8">
+        <h3 class="text-lg font-bold text-stone-800 mb-4">Dream Brands to Pitch</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="dream-brand-cards"></div>
+      </div>
+    </div>
+  </div><!-- end tab-outreach -->
+
+  <!-- REVENUE TAB -->
+  <div id="tab-revenue" style="display:none;">
+    <div class="max-w-[1600px] mx-auto px-4 lg:px-6 py-6">
+
+      <!-- Revenue Summary Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-stone-400 uppercase tracking-wide mb-1">Monthly Goal</p>
+          <p class="text-2xl font-bold text-stone-800" id="rev-goal">$10,000</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-emerald-500 uppercase tracking-wide mb-1">Confirmed</p>
+          <p class="text-2xl font-bold text-emerald-500" id="rev-confirmed">$0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-amber-500 uppercase tracking-wide mb-1">Pending</p>
+          <p class="text-2xl font-bold text-amber-500" id="rev-pending">$0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-sky-500 uppercase tracking-wide mb-1">Gifting Value</p>
+          <p class="text-2xl font-bold text-sky-500" id="rev-gifting">$0</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <p class="text-xs text-violet-500 uppercase tracking-wide mb-1">Total Pipeline</p>
+          <p class="text-2xl font-bold text-violet-500" id="rev-pipeline">$0</p>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-5 mb-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-sm font-semibold text-stone-600">Progress to Monthly Goal</p>
+          <p class="text-sm text-stone-400" id="rev-percent">0%</p>
+        </div>
+        <div class="w-full bg-stone-100 rounded-full h-4 overflow-hidden">
+          <div class="h-full rounded-full transition-all duration-500" id="rev-bar" style="width: 0%; background: linear-gradient(90deg, #a78bfa, #f472b6);"></div>
+        </div>
+        <div class="flex justify-between mt-2">
+          <span class="text-xs text-stone-400">$0</span>
+          <span class="text-xs text-stone-400" id="rev-bar-goal">$10,000</span>
+        </div>
+      </div>
+
+      <!-- Deals Table -->
+      <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="px-5 py-4 border-b border-stone-100 flex items-center justify-between flex-wrap gap-2">
+          <h3 class="font-semibold text-stone-700">All Deals</h3>
+          <div class="flex gap-2 overflow-x-auto">
+            <button class="rev-filter text-xs px-3 py-1 rounded-full bg-violet-100 text-violet-700 flex-shrink-0" data-filter="all" onclick="filterRevenue('all')">All</button>
+            <button class="rev-filter text-xs px-3 py-1 rounded-full bg-stone-50 text-stone-400 flex-shrink-0" data-filter="confirmed" onclick="filterRevenue('confirmed')">Confirmed</button>
+            <button class="rev-filter text-xs px-3 py-1 rounded-full bg-stone-50 text-stone-400 flex-shrink-0" data-filter="pending" onclick="filterRevenue('pending')">Pending</button>
+            <button class="rev-filter text-xs px-3 py-1 rounded-full bg-stone-50 text-stone-400 flex-shrink-0" data-filter="negotiating" onclick="filterRevenue('negotiating')">Negotiating</button>
+            <button class="rev-filter text-xs px-3 py-1 rounded-full bg-stone-50 text-stone-400 flex-shrink-0" data-filter="outreach" onclick="filterRevenue('outreach')">Outreach</button>
+          </div>
+        </div>
+        <div class="rev-table-wrapper overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-stone-50">
+              <tr>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase">Brand</th>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase">Type</th>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase">Value</th>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase">Status</th>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase">Notes</th>
+                <th class="px-5 py-3 text-left text-xs font-semibold text-stone-500 uppercase w-10"></th>
+              </tr>
+            </thead>
+            <tbody id="rev-table"></tbody>
+          </table>
+        </div>
+        <div class="px-5 py-3 border-t border-stone-100 text-sm" id="rev-removed-section" style="display:none;">
+          <button class="text-violet-500 hover:text-violet-700 text-xs font-medium" onclick="showRemovedDeals()">Show removed deals</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- end tab-revenue -->
+
+  <!-- CALENDAR TAB -->
+  <div id="tab-calendar" style="display:none;">
+
+    <!-- Calendar Header -->
+    <div class="bg-white border-b border-stone-100 px-6 py-3">
+      <div class="max-w-[1600px] mx-auto flex items-center justify-between">
+        <div class="flex items-center gap-4 lg:gap-8 overflow-x-auto">
+          <div class="flex items-center gap-2">
+            <button onclick="calPrevMonth()" class="p-1 hover:bg-stone-100 rounded">
+              <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <span class="text-xl font-bold text-stone-800 min-w-[180px] text-center" id="cal-month-title">March 2026</span>
+            <button onclick="calNextMonth()" class="p-1 hover:bg-stone-100 rounded">
+              <svg class="w-5 h-5 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+            <button onclick="calToday()" class="ml-2 px-3 py-1 text-xs font-medium bg-violet-100 text-violet-700 rounded-full">Today</button>
+          </div>
+        </div>
+        <div class="cal-legend flex items-center gap-2 flex-wrap">
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-violet-400 inline-block"></span> Events</span>
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span> Content</span>
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span> Deadlines</span>
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Work</span>
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Milestones</span>
+          <span class="inline-flex items-center gap-1 text-xs"><span class="w-2.5 h-2.5 rounded-full bg-stone-300 inline-block"></span> Bills</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar Grid + Upcoming -->
+    <div class="max-w-[1600px] mx-auto px-4 lg:px-6 py-6 flex flex-col lg:flex-row gap-6">
+
+      <!-- Calendar Grid -->
+      <div class="flex-1 bg-white rounded-2xl border border-stone-200 overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="grid grid-cols-7 bg-stone-50 border-b border-stone-200">
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Sun</span><span class="short-day" style="display:none;">S</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Mon</span><span class="short-day" style="display:none;">M</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Tue</span><span class="short-day" style="display:none;">T</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Wed</span><span class="short-day" style="display:none;">W</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Thu</span><span class="short-day" style="display:none;">T</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Fri</span><span class="short-day" style="display:none;">F</span></div>
+          <div class="cal-day-header px-2 py-3 text-center text-xs font-semibold text-stone-400 uppercase"><span class="full-day">Sat</span><span class="short-day" style="display:none;">S</span></div>
+        </div>
+        <div class="grid grid-cols-7" id="cal-grid"></div>
+      </div>
+
+      <!-- Upcoming Sidebar -->
+      <div class="w-full lg:w-80 flex-shrink-0 space-y-4">
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <h3 class="font-semibold text-stone-700 mb-4">Coming Up Next</h3>
+          <div class="space-y-3" id="cal-upcoming"></div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+          <h3 class="font-semibold text-stone-700 mb-4">Selected Day</h3>
+          <div id="cal-day-detail" class="text-sm text-stone-400">Click a day to see details</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end tab-calendar -->
+
+  <!-- RATES TAB -->
+  <div id="tab-rates" style="display:none;">
+    <div class="max-w-[1200px] mx-auto px-4 lg:px-6 py-8">
+
+      <!-- Rates Header -->
+      <div class="mb-8 flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-stone-800">Your Active Rates</h2>
+          <p class="text-sm text-stone-400 mt-1">Updated March 2026 — calibrated to close deals based on real engagement data</p>
+        </div>
+        <button class="px-5 py-2.5 rounded-xl bg-rose-50 text-rose-600 font-semibold text-sm hover:bg-rose-100 transition-colors border border-rose-100" onclick="alert('Ask Cata to upload the media kit to a share link (Google Drive, Dropbox, etc.) so brands can access it.')">
+          Download Media Kit
+          <span class="block text-[10px] text-rose-400 font-normal mt-0.5">Ask Cata to upload to share link</span>
+        </button>
+      </div>
+
+      <!-- Bundle Options -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 mb-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-bold text-stone-800 text-lg mb-4">Bundle Options</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-violet-50 rounded-xl p-4 border border-violet-100">
+            <p class="text-2xl font-bold text-violet-600">$1,000</p>
+            <p class="font-semibold text-stone-700 mt-1">Single Image</p>
+            <p class="text-xs text-stone-400 mt-1">1 IG feed post, cross-posted to TikTok. High-quality styled shot.</p>
+          </div>
+          <div class="bg-sky-50 rounded-xl p-4 border border-sky-100">
+            <p class="text-2xl font-bold text-sky-600">$1,500</p>
+            <p class="font-semibold text-stone-700 mt-1">Carousel</p>
+            <p class="text-xs text-stone-400 mt-1">Multi-image IG post (up to 10 slides). Great for product features.</p>
+          </div>
+          <div class="bg-rose-50 rounded-xl p-4 border border-rose-100">
+            <p class="text-2xl font-bold text-rose-600">$1,800</p>
+            <p class="font-semibold text-stone-700 mt-1">Reel (IG + TikTok)</p>
+            <p class="text-xs text-stone-400 mt-1">Video reel cross-posted to IG (302K) and TikTok (700K). Most popular.</p>
+          </div>
+          <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+            <p class="text-2xl font-bold text-emerald-600">$4,000</p>
+            <p class="font-semibold text-stone-700 mt-1">Full Campaign</p>
+            <p class="text-xs text-stone-400 mt-1">Image + Video + Carousel across both platforms. Best value for brands.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Insights -->
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 mb-6" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <h3 class="font-bold text-stone-800 text-lg mb-4">Platform Insights</h3>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+          <div>
+            <p class="text-2xl font-bold text-violet-500">302K</p>
+            <p class="text-xs text-stone-400">IG Followers</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-violet-500">700K</p>
+            <p class="text-xs text-stone-400">TikTok Followers</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-rose-500">1M+</p>
+            <p class="text-xs text-stone-400">Combined Reach</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-amber-500">1.57%</p>
+            <p class="text-xs text-stone-400">IG Engagement</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-emerald-500">60.7%</p>
+            <p class="text-xs text-stone-400">Women Audience</p>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-stone-100 text-sm text-stone-500 flex flex-wrap gap-4">
+          <span>Top: US 23.8%</span>
+          <span>Costa Rica 17%</span>
+          <span>Italy 7.6%</span>
+          <span>Age: 25-44 core</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Content Creation Rates -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- Social Media Content -->
+          <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="bg-gradient-to-r from-rose-300 to-violet-300 px-6 py-4">
+              <h3 class="text-white font-bold text-lg">Social Media Content</h3>
+              <p class="text-white/80 text-sm">All rates include cross-platform posting (IG 302K + TikTok 700K = 1M+ reach)</p>
+            </div>
+            <div class="divide-y divide-stone-100">
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">3 Frame Story</p>
+                  <p class="text-xs text-stone-400">IG Stories — 3 slides</p>
+                </div>
+                <span class="text-xl font-bold text-violet-500">$800</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Single Image Post</p>
+                  <p class="text-xs text-stone-400">IG feed post — 1 image</p>
+                </div>
+                <span class="text-xl font-bold text-violet-500">$1,000</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Carousel</p>
+                  <p class="text-xs text-stone-400">IG multi-image post — up to 10 slides</p>
+                </div>
+                <span class="text-xl font-bold text-violet-500">$1,500</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 bg-violet-50/50">
+                <div>
+                  <p class="font-semibold text-stone-700">Reel (IG + TikTok)</p>
+                  <p class="text-xs text-stone-400">Most popular — cross-posted to both platforms</p>
+                </div>
+                <span class="text-xl font-bold text-violet-500">$1,800</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-rose-50/50 to-violet-50/50">
+                <div>
+                  <p class="font-semibold text-stone-700">Full Campaign</p>
+                  <p class="text-xs text-stone-400">Best value — Image + Video + Carousel across both platforms</p>
+                </div>
+                <span class="text-xl font-bold text-violet-500">$4,000</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Creative Campaign</p>
+                  <p class="text-xs text-stone-400">Custom scope — contact for pricing</p>
+                </div>
+                <span class="text-lg font-bold text-stone-400">Custom</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Production Rates -->
+          <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="bg-gradient-to-r from-stone-500 to-stone-700 px-6 py-4">
+              <h3 class="text-white font-bold text-lg">Production & Modeling</h3>
+              <p class="text-stone-300 text-sm">Professional modeling and production fees</p>
+            </div>
+            <div class="divide-y divide-stone-100">
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Model Fee</p>
+                  <p class="text-xs text-stone-400">Professional modeling — depends on scope</p>
+                </div>
+                <span class="text-lg font-bold text-stone-600">$2,000 - $9,000</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Full Makeup + Hair</p>
+                  <p class="text-xs text-stone-400">HMUA for shoots and campaigns</p>
+                </div>
+                <span class="text-lg font-bold text-stone-600">$300 - $1,000</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Stylist + Wardrobe</p>
+                  <p class="text-xs text-stone-400">Styling services for shoots</p>
+                </div>
+                <span class="text-lg font-bold text-stone-600">$700 - $1,500+</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Photographer / Videographer</p>
+                  <p class="text-xs text-stone-400">Content production team</p>
+                </div>
+                <span class="text-lg font-bold text-stone-600">$1,500 - $8,000</span>
+              </div>
+              <div class="flex items-center justify-between px-6 py-4 hover:bg-stone-50">
+                <div>
+                  <p class="font-semibold text-stone-700">Full Campaign Production</p>
+                  <p class="text-xs text-stone-400">End-to-end creative production</p>
+                </div>
+                <span class="text-lg font-bold text-stone-600">~$10,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+
+          <!-- Strategy Card -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-700 mb-3 flex items-center gap-2">
+              Rate Strategy
+            </h3>
+            <div class="space-y-3 text-sm text-stone-500 leading-relaxed">
+              <p>These rates are set to <strong class="text-stone-700">close deals</strong>, not sit in inboxes.</p>
+              <p>5 deals at $1,800 = <strong class="text-emerald-500">$9,000</strong></p>
+              <p>0 deals at $3,500 = <strong class="text-rose-500">$0</strong></p>
+              <p class="text-xs text-stone-400 pt-2 border-t border-stone-100">More deals -> more content -> better engagement -> rates go back up</p>
+            </div>
+          </div>
+
+          <!-- Pitch Angles -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-700 mb-3 flex items-center gap-2">
+              Pitch Angles
+            </h3>
+            <div class="space-y-4 text-sm">
+              <div>
+                <p class="text-xs font-medium text-violet-500 uppercase mb-1">For US Brands</p>
+                <p class="text-stone-500 italic leading-relaxed">"1M+ combined followers across IG and TikTok, with multicultural reach spanning the US, Latin America, and Europe."</p>
+              </div>
+              <div class="border-t border-stone-100 pt-3">
+                <p class="text-xs font-medium text-emerald-500 uppercase mb-1">For Latin / International Brands</p>
+                <p class="text-stone-500 italic leading-relaxed">"62% Costa Rica on TikTok — perfect for brands connecting with Latin consumers."</p>
+              </div>
+              <div class="border-t border-stone-100 pt-3">
+                <p class="text-xs font-medium text-amber-500 uppercase mb-1">For Everyone</p>
+                <p class="text-stone-500 italic leading-relaxed">"Created content for Chanel, Skims, Revolve, Valentino, and Four Seasons."</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Rules -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-700 mb-3 flex items-center gap-2">
+              Quick Rules
+            </h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">+</span><span class="text-stone-500">Always offer cross-platform posting</span></div>
+              <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">+</span><span class="text-stone-500">Always mention package deals</span></div>
+              <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">+</span><span class="text-stone-500">Lead with brand history</span></div>
+              <div class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">+</span><span class="text-stone-500">Mention 1M+ combined reach</span></div>
+              <div class="flex items-start gap-2 pt-2 border-t border-stone-100"><span class="text-rose-400 mt-0.5">-</span><span class="text-stone-500">Never mention engagement rate</span></div>
+              <div class="flex items-start gap-2"><span class="text-rose-400 mt-0.5">-</span><span class="text-stone-500">Never use old media kit rates</span></div>
+            </div>
+          </div>
+
+          <!-- Brand History -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <h3 class="font-bold text-stone-700 mb-3 flex items-center gap-2">
+              Brand Resume
+            </h3>
+            <div class="space-y-2 text-sm">
+              <div>
+                <p class="text-xs font-medium text-stone-400 uppercase">Fashion</p>
+                <p class="text-stone-500">Skims, Revolve, Good American, Nadine Merabi, House of CB</p>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-stone-400 uppercase">Beauty</p>
+                <p class="text-stone-500">Chanel, Valentino, Haus Labs, Make Up by Mario, Clinique</p>
+              </div>
+              <div>
+                <p class="text-xs font-medium text-stone-400 uppercase">Lifestyle</p>
+                <p class="text-stone-500">Volvo, Four Seasons, MSC Cruises, Alo Yoga</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div><!-- end tab-rates -->
+
+  <script src="app.js"></script>
+</body>
+</html>

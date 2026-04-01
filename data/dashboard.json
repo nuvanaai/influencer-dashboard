@@ -1,0 +1,1489 @@
+{
+  "lastUpdated": "2026-03-31T21:30:00-04:00",
+  "cards": [
+    {
+      "id": "deal-rednote",
+      "title": "Rednote — Platform Partnership Inquiry",
+      "description": "Lily from Rednote reached out about a business partnership. Vague on details. Draft sent asking for specifics on deliverables and compensation.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Lily",
+      "contactEmail": "1725897442@qq.com",
+      "value": "TBD",
+      "tags": ["platform", "new", "international"],
+      "link": "https://mail.google.com/mail/u/0/#all/19d41294bdbc7c59",
+      "linkLabel": "Open Lily's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d45dfa41dae8d7",
+      "draftLabel": "Review reply draft",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-axon",
+      "title": "Axon — Brand Deals & Sound Promos",
+      "description": "Srijit from Axon following up on influencer marketing opportunity — brand deals and sound promos with global brands and artists. Draft sent asking for specifics.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Srijit (Axon)",
+      "contactEmail": "contact@axonsolutions.net",
+      "value": "TBD",
+      "tags": ["agency", "music", "new"],
+      "link": "https://mail.google.com/mail/u/0/#all/19d40be80b9c8979",
+      "linkLabel": "Open Srijit's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d45dfae565f7c6",
+      "draftLabel": "Review reply draft",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-laifen",
+      "title": "Laifen — PAID REEL (Hair/Dental Launch) 💰",
+      "description": "🔥 Hazel from Tec-Do Agency wants Cata for Laifen Wave Pro toothbrush launch in North America. 1 dedicated IG Reel. Draft sent with $1,800 rate (cross-posted to TikTok). Posting window: May 2026.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Hazel Yan",
+      "contactEmail": "hazel.yan@offer.tec-do.com",
+      "value": "$1,800",
+      "tags": ["beauty", "wellness", "paid", "reel", "new"],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d436401c89f919",
+      "linkLabel": "Open Hazel's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d45df80d9e636f",
+      "draftLabel": "Send rates reply",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-nursebabees",
+      "title": "Nurse Babes — PAID COLLAB (Counter Sent) 💰",
+      "description": "🔥 Olivia from Meteoric offered $300 for a dedicated reel + 4 raw videos. Way below Cata's rate. Counter-draft sent at $1,800 (cross-posted IG + TikTok, 1M+ combined). Offer to send media kit.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Olivia (Meteoric)",
+      "contactEmail": "collaborations@yourmeteoriccreative.com",
+      "value": "$1,800 (counter)",
+      "tags": ["wellness", "healthcare", "paid", "reel", "new"],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d446cde5e55044",
+      "linkLabel": "Open Olivia's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d45df9b7b92f01",
+      "draftLabel": "Review counter-offer draft",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-duet-starleap",
+      "title": "Duet Dating App — PAID TikTok Reel 💰",
+      "description": "🔥 Helen from Starleap Social wants story-driven TikTok content for Duet app. Fully paid collab. Draft sent with $1,800 rate (cross-posted to IG, 1M+ combined). Waiting on timeline + creative brief.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Helen (Starleap Social)",
+      "contactEmail": "creatormanager@starleapsocial.com",
+      "value": "$1,800",
+      "tags": ["lifestyle", "dating", "tiktok", "paid", "reel", "new"],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d401eea417e933",
+      "linkLabel": "Open Helen's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d451dfc4cf8868",
+      "draftLabel": "Review reply draft",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-houseofcb",
+      "title": "House of CB \u2014 COACHELLA GIFTING! \ud83d\udd25",
+      "description": "\ud83d\udd25 Georgia from House of CB wants to send Chalet du Soleil collection pieces for Coachella! Draft reply ready with size/address. CC Chantelle for Coachella coordination.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Georgia Curry",
+      "contactEmail": "georgia.curry@houseofcb.com",
+      "value": "Gifting",
+      "tags": [
+        "fashion",
+        "gifting",
+        "coachella",
+        "new"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d2b10f694e96a1",
+      "linkLabel": "Open Georgia's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d2f9c1ddaf288e",
+      "draftLabel": "Send reply with size/address",
+      "updatedAt": "2026-03-27"
+    },
+    {
+      "id": "deal-typeless",
+      "title": "Typeless \u2014 PAID REEL SPONSORSHIP \ud83d\udcb0",
+      "description": "\ud83d\udd25 Shawn from Typeless (AI tool, #1 Product Hunt) wants to sponsor 45-60sec IG Reel. Open to single video OR package deal (3-5 videos). Mentioned by MrBeast's team! Draft ready with rates: ,800 single / ,800 package.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Shawn Xiao",
+      "contactEmail": "shawn@typeless.com",
+      "value": "$1,800-$4,800",
+      "tags": [
+        "ai",
+        "tech",
+        "paid",
+        "reel",
+        "nuvana-aligned",
+        "new"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d2f8c6c7588c55",
+      "linkLabel": "Open Shawn's email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d2f9c3a47b4a57",
+      "draftLabel": "Send rates reply",
+      "updatedAt": "2026-03-27"
+    },
+    {
+      "id": "deal-lmnt",
+      "title": "LMNT \u2014 Gifting + Referral Program",
+      "description": "LMNT replied \u2014 not taking new partners via cold outreach but offering free product + referral link after 2nd purchase. Draft ready with shipping address.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Nova (Team LMNT)",
+      "contactEmail": "hello@drinklmnt.com",
+      "value": "Gifting",
+      "tags": [
+        "wellness",
+        "gifting",
+        "referral",
+        "coachella"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d2b2f655d5d80c",
+      "linkLabel": "View LMNT reply",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d2f9c483f243e8",
+      "draftLabel": "Send address for free product",
+      "updatedAt": "2026-03-27"
+    },
+    {
+      "id": "deal-beautyb",
+      "title": "BeautyB Platform \u2014 Launch Your Own Beauty Brand",
+      "description": "Brian Toczko offering to help launch a beauty brand with no upfront inventory cost. Worth exploring for Nuvana or personal brand.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Brian Toczko",
+      "contactEmail": "brian.toczko@beautybplatform.com",
+      "tags": [
+        "beauty",
+        "brand-launch",
+        "opportunity",
+        "new"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d29d19aaf1a693",
+      "linkLabel": "Open Brian's email",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-puravida",
+      "title": "Pura Vida \u2014 Coachella Partnership (In Review)",
+      "description": "Pura Vida team reviewing request. Auto-reply received.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Pura Vida Team",
+      "tags": [
+        "jewelry",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d2a05b189826e7",
+      "linkLabel": "View Pura Vida thread",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-uber",
+      "title": "Uber \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Uber Team",
+      "tags": [
+        "travel",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-covergirl",
+      "title": "CoverGirl / Coty \u2014 Collab Pitch",
+      "description": "Megan Hartman (Coty) was OOO until March 24. Follow-up SENT Mar 26 to Megan. Biggest brand opportunity!",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Megan Hartman",
+      "value": "TBD \u2014 Major",
+      "tags": [
+        "beauty",
+        "covergirl",
+        "high-priority"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d1cdff997bae67",
+      "linkLabel": "Open email thread",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d2369e6f81bc55",
+      "draftLabel": "Open follow-up draft",
+      "contactEmail": "megan_hartman@cotyinc.com",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-lavarice",
+      "title": "LAVARICE Swim \u2014 Gifting (Pick Replacements)",
+      "description": "REPLIED Mar 26 \u2014 Sent replacement picks and shipping address to Nastya. Waiting for confirmation.",
+      "column": "in_progress",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Nastya Timofeychuk",
+      "value": "Gifting",
+      "tags": [
+        "swim",
+        "gifting"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#drafts?compose=19d206a2437388a9",
+      "linkLabel": "Open draft \u2014 pick pieces first!",
+      "contactEmail": "pr@lavarice.com",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-merabi",
+      "title": "Nadine Merabi — LYLA SENT COLLECTION! 🔥",
+      "description": "🔥 Lyla replied Mar 31 with the new collection piece (image attached in email). She wants to know what Cata thinks! Draft sent expressing love and asking about deliverables + timeline. Check the email to see the dress!",
+      "column": "in_progress",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Lyla Heys",
+      "value": "Gifting",
+      "tags": [
+        "fashion",
+        "gifting",
+        "active"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19c908f1174225f8",
+      "linkLabel": "Open Lyla's email (see the dress!)",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d451de9a4a02fd",
+      "draftLabel": "Review reply draft",
+      "contactEmail": "lyla.heys@nadinemerabi.com",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-heiress",
+      "title": "Heiress Beverly Hills \u2014 VIP Gifting",
+      "description": "$600 gift card to select any piece. Accept and choose from their site. Heiress sending promo email about new product launch Mar 26.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Liz",
+      "value": "$600 gift",
+      "tags": [
+        "fashion",
+        "gifting"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d080f0f75113f4",
+      "linkLabel": "Open email & draft",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-poosh",
+      "title": "Camp Poosh VIP \u2014 CONFIRMED! Need +1",
+      "description": "\u2705 CONFIRMED for Camp Poosh April 11! Need to reply with +1 full name and IG handle. Only 1 guest allowed. Second confirmation email received Mar 26 from Shehan.",
+      "column": "todo",
+      "business": "brand",
+      "type": "event",
+      "contact": "Shehan Altamirano",
+      "deadline": "2026-04-11",
+      "tags": [
+        "event",
+        "vip"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d28b2c4c9d8da6",
+      "linkLabel": "Reply with +1 details",
+      "updatedAt": "2026-03-26",
+      "contactEmail": "camppoosh6@cldstylehouse.com"
+    },
+    {
+      "id": "deal-wavytalk",
+      "title": "Wavytalk \u2014 CHARLOTTE REPLIED!",
+      "description": "\ud83d\udd25 Charlotte replied Mar 26! She passed rates to Francesca who will follow up. Waiting for Francesca's email.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Charlotte",
+      "value": "$1,800",
+      "tags": [
+        "beauty",
+        "hair",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d29237d79b8582",
+      "linkLabel": "Open Charlotte's reply",
+      "contactEmail": "Charlotte@wavytalk.com",
+      "updatedAt": "2026-03-26"
+    },
+    {
+      "id": "deal-realeactives",
+      "title": "Reale Actives \u2014 Coachella Partnership (Sent to Partnerships)",
+      "description": "Reale Actives directed us to partnerships email. Sent second inquiry. Waiting for marketing team.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Reale Actives Partnerships",
+      "value": "TBD",
+      "tags": [
+        "skincare",
+        "coachella",
+        "outreach"
+      ],
+      "updatedAt": "2026-03-26",
+      "contactEmail": "partnerships@realeactives.com",
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d2a7d6ac399fa1",
+      "linkLabel": "View latest thread"
+    },
+    {
+      "id": "deal-proda-evolve",
+      "title": "PRODA via Evolve Agency \u2014 Gifting + Paid Collab",
+      "description": "\ud83d\udd25 Brandy from Evolve Agency sent GIFTING + possible PAID COLLAB with PRODA. Need to reply confirming interest and shipping address.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Brandy Weaver",
+      "contactEmail": "brandy@evolveartistsagency.com",
+      "tags": [
+        "gifting",
+        "paid",
+        "agency",
+        "new"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d269f3e11640d0",
+      "linkLabel": "Open Brandy's email",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-iunik",
+      "title": "IUNIK \u2014 Gifted K-Beauty Collab (TikTok)",
+      "description": "Kglowing (official IUNIK partner) offering Beta-Glucan Serum for 1 TikTok video. Korean viral product for sensitive skin.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Kglowing Team",
+      "contactEmail": "official@kglowing.ai",
+      "value": "Gifting",
+      "tags": [
+        "gifting",
+        "tiktok",
+        "beauty",
+        "k-beauty",
+        "new"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d262d80c7ef942",
+      "linkLabel": "Open IUNIK offer",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-calvinklein",
+      "title": "Calvin Klein \u2014 Request Forwarded to Team",
+      "description": "CK customer service confirmed they forwarded collab request to relevant team. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Calvin Klein Team",
+      "contactEmail": "calvinkleincustomerservice@pvh.com",
+      "tags": [
+        "fashion",
+        "luxury",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d266953f7ad0cf",
+      "linkLabel": "View CK response",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-mejuri",
+      "title": "Mejuri \u2014 Creator Portal Application Approved",
+      "description": "Applied to Mejuri creator portal for Coachella. Need to confirm email to complete registration.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Mejuri Creators",
+      "contactEmail": "contact@partners.mejuri.com",
+      "tags": [
+        "jewelry",
+        "creator-portal",
+        "coachella"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#inbox/19d27f7d933403f1",
+      "linkLabel": "Confirm email",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-jsx",
+      "title": "JSX \u2014 Coachella Partnership (Forwarded)",
+      "description": "JSX forwarded to marketing dept. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "JSX Marketing",
+      "tags": [
+        "travel",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d2782ae470e316",
+      "linkLabel": "View JSX thread",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-turo",
+      "title": "Turo \u2014 Coachella Partnership (Fill Form)",
+      "description": "Turo asked to fill out influencer form. Need to submit.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Turo Influencer Team",
+      "contactEmail": "influencers@turo.com",
+      "tags": [
+        "travel",
+        "coachella",
+        "form"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d273e301289cd0",
+      "linkLabel": "Open Turo form",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-farmrio",
+      "title": "FARM Rio \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "FARM Rio Team",
+      "tags": [
+        "fashion",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-ceremonia",
+      "title": "Ceremonia \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Ceremonia Team",
+      "tags": [
+        "haircare",
+        "coachella",
+        "outreach",
+        "latina"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-deziskin",
+      "title": "Dezi Skin \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Dezi Skin Team",
+      "tags": [
+        "skincare",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-baublebar",
+      "title": "BaubleBar \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "BaubleBar Team",
+      "tags": [
+        "jewelry",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-pandora",
+      "title": "Pandora \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Pandora Team",
+      "tags": [
+        "jewelry",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-evryjewels",
+      "title": "Evry Jewels \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Evry Jewels Team",
+      "tags": [
+        "jewelry",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-delta",
+      "title": "Delta \u2014 Coachella Partnership (Sent)",
+      "description": "Coachella 2026 Creator Partnership pitch sent. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Delta Team",
+      "tags": [
+        "travel",
+        "coachella",
+        "outreach"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-zeelool",
+      "title": "Zeelool Eyewear — COUNTER SENT (Hold at $1,500) ⚠️",
+      "description": "⚠️ Fancy came back Mar 31 offering $1,200 — but we had ALREADY agreed to $1,500! Counter-draft sent holding firm at $1,500 (the agreed rate). Posting window April 8-10. Waiting for confirmation.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Fancy Zhang",
+      "value": "$1,500",
+      "tags": [
+        "reel",
+        "eyewear",
+        "paid",
+        "negotiating"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d1ebc4e5cafd81",
+      "linkLabel": "Open Fancy's latest email",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d451ddeafc4d14",
+      "draftLabel": "Review counter draft",
+      "contactEmail": "fancyzhang@haimamedia.com",
+      "updatedAt": "2026-03-31"
+    },
+    {
+      "id": "deal-lensmart",
+      "title": "Lensmart \u2014 Collab (Replied Mar 24)",
+      "description": "\u2705 REPLIED Mar 24 \u2014 Agreed to deliverables (IG post/Reel + TikTok unboxing). Negotiating rate. Waiting for their response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Charmian",
+      "value": "$1,800",
+      "tags": [
+        "eyewear",
+        "inquiry",
+        "replied"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d229a33236725d",
+      "linkLabel": "View sent reply",
+      "contactEmail": "charmian@lensmartonline.com",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-blanco",
+      "title": "Blanco By Nature \u2014 Coachella Reel",
+      "description": "Michelle checking with brand on $1,800 rate. Due for follow-up TODAY March 25.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Michelle Reed",
+      "value": "$1,800",
+      "tags": [
+        "fashion",
+        "coachella",
+        "reel"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19cdb1ca8be2ee3c",
+      "linkLabel": "Open email thread",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d2369f14d8db25",
+      "draftLabel": "Open follow-up draft",
+      "contactEmail": "influencers@lemonadds.com",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-sundaycitizen",
+      "title": "Sunday Citizen \u2014 Follow Up (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Circled back on collab conversation. Shared reel rate. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Cande Scolni",
+      "value": "$1,800",
+      "tags": [
+        "lifestyle",
+        "follow-up",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230b16db3e5a3",
+      "linkLabel": "View sent email",
+      "contactEmail": "cande@sundaycitizen.co",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-nylon",
+      "title": "NYLON House \u2014 Event Follow Up (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Asked Jax about upcoming spring events. Based in NYC, available.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Jax Sobel",
+      "tags": [
+        "events",
+        "follow-up",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230ac581e6e74",
+      "linkLabel": "View sent email",
+      "contactEmail": "jax@thealist.us",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-cld-kassandra",
+      "title": "CLD PR \u2014 Spring Campaigns (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up with Kassandra about spring/summer campaigns. Mentioned Camp Poosh.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Kassandra Gil",
+      "tags": [
+        "pr",
+        "campaigns",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230a751ee5501",
+      "linkLabel": "View sent email",
+      "contactEmail": "kassandra@cldstylehouse.com",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-essie",
+      "title": "essie \u2014 Liquid Diamonds Gifting (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Accepted gifting for new Liquid Diamonds Collection. Waiting for shipping details.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Ej Lim",
+      "value": "Gifting",
+      "tags": [
+        "beauty",
+        "gifting",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230829d32dc51",
+      "linkLabel": "View sent email",
+      "contactEmail": "ejl1@obvious.ly",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-bioptimizers",
+      "title": "BIOptimizers \u2014 Paid TikTok Collab (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up on paid TikTok collab conversation. Waiting for Derek's response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Derek Roberts",
+      "tags": [
+        "wellness",
+        "tiktok",
+        "paid",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2307a5096fa73",
+      "linkLabel": "View sent email",
+      "contactEmail": "derek@bioptimizers.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236a27d188611",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-nokwol",
+      "title": "Nokwol \u2014 Content Collab (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up about creating content for their leather pieces. Shared rates.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Juliana Davoglio",
+      "value": "$1,800",
+      "tags": [
+        "fashion",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230704cbbe9ea",
+      "linkLabel": "View sent email",
+      "contactEmail": "juliana@nokwol.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236a3c35c1920",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-erborian",
+      "title": "Erborian \u2014 2026 Gifting (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Confirmed interest in 2026 gifting program. Waiting for details.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Kaila Cohen",
+      "value": "Gifting",
+      "tags": [
+        "beauty",
+        "gifting",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2306a082ac7ba",
+      "linkLabel": "View sent email",
+      "contactEmail": "Kaila.COHEN@loccitane.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236abed6f14a4",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-miu-ai",
+      "title": "Miu AI \u2014 Paid Carousel (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Replied with carousel rate ($1,500). Waiting for Maria's response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Maria",
+      "value": "$1,500",
+      "tags": [
+        "ai",
+        "carousel",
+        "paid",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2303818d3c030",
+      "linkLabel": "View sent email",
+      "contactEmail": "maria@kinocompania.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236a649fd3932",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-elf",
+      "title": "elf Cosmetics \u2014 Coachella Pitch (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Pitched Coachella 2026 partnership. They replied saying no current opportunity but to stay in touch. Replied graciously.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "elf Team",
+      "tags": [
+        "beauty",
+        "coachella",
+        "pitch",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d22430f1d4d04d",
+      "linkLabel": "View sent thread",
+      "contactEmail": "elf@elfcosmetics.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236b22daaf175",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-laneige",
+      "title": "Laneige \u2014 Coachella Pitch (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Pitched Coachella 2026 creator partnership. 1M+ reach. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Laneige Team",
+      "tags": [
+        "beauty",
+        "coachella",
+        "pitch",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2260ee1fa9d65",
+      "linkLabel": "View sent pitch",
+      "contactEmail": "laneige@apus.amorepacific.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236b1694a1164",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-rhode",
+      "title": "Rhode \u2014 Coachella Pitch (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Pitched Coachella 2026 creator partnership. 1M+ reach. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Rhode Team",
+      "tags": [
+        "beauty",
+        "coachella",
+        "pitch",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d225181e52d9b0",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-charlottetilbury",
+      "title": "Charlotte Tilbury \u2014 Coachella Pitch (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Pitched Coachella 2026 creator partnership. 1M+ reach. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Charlotte Tilbury Team",
+      "tags": [
+        "beauty",
+        "coachella",
+        "pitch",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d22470004b6e94",
+      "linkLabel": "View sent pitch",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-stevemadden",
+      "title": "Steve Madden \u2014 Gifting Follow Up (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Checked in with Jazzy about spring gifting/collab opportunities.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Jasmine Stone",
+      "value": "Gifting",
+      "tags": [
+        "fashion",
+        "gifting",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2304f918ed4df",
+      "linkLabel": "View sent email",
+      "contactEmail": "JasmineStone@stevemadden.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236a70fe1b816",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-cupshe",
+      "title": "Pull PR / Cupshe \u2014 Follow Up (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up with Lulu about new gifting and campaigns from their clients.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Lulu Buckley",
+      "tags": [
+        "fashion",
+        "pr",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2305d93f7b7ff",
+      "linkLabel": "View sent email",
+      "contactEmail": "lulu@pull-pr.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236a7db3d5b05",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-espoir",
+      "title": "Espoir \u2014 PR Gifting (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up about Be Velvet Cushion Foundation gifting. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Inhwa Sim",
+      "value": "Gifting",
+      "tags": [
+        "beauty",
+        "gifting",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d23066157c02b8",
+      "linkLabel": "View sent email",
+      "contactEmail": "inhwalisasim@espoir.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236acd5f8ed97",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-houseofcontra",
+      "title": "House of Contra \u2014 Spring Events (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up with Taylor about upcoming spring events. Based in NYC.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Taylor Ponsoldt",
+      "tags": [
+        "events",
+        "wellness",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d2307f0edf3ba5",
+      "linkLabel": "View sent email",
+      "contactEmail": "taylor@houseofcontra.com",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-innovativepr",
+      "title": "Innovative PR \u2014 Gifting Follow Up (Sent Mar 24)",
+      "description": "\u2705 SENT Mar 24 \u2014 Followed up with Ashly about gifting from their clients. Events and launches.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Ashly Yaraghchi",
+      "tags": [
+        "pr",
+        "gifting",
+        "sent"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#sent/19d230567a1a211f",
+      "linkLabel": "View sent email",
+      "contactEmail": "Ashly@innovative-pr.com",
+      "draftLink": "https://mail.google.com/mail/u/0/#drafts?compose=19d236afd8d9da6c",
+      "draftLabel": "Open follow-up draft",
+      "updatedAt": "2026-03-25"
+    },
+    {
+      "id": "deal-pashion",
+      "title": "Pashion Footwear \u2014 PR List Application",
+      "description": "Responded to Coachella pitch. Apply to their PR list form to get on gifting list.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Partnerships Team",
+      "value": "Gifting",
+      "tags": [
+        "footwear",
+        "coachella"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d200ffa3ebe44f",
+      "linkLabel": "Open email \u2014 apply to form",
+      "updatedAt": "2026-03-24"
+    },
+    {
+      "id": "deal-magicfit",
+      "title": "MagicFit AI Partnership",
+      "description": "\u23f3 DRAFT READY \u2014 Updated draft asking about higher volume rate. Review and send.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Farooq",
+      "value": "$50/reel + affiliate",
+      "tags": [
+        "ai",
+        "tech"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#drafts?compose=19d1cd8b036af2f3",
+      "linkLabel": "Open draft \u2192 Send",
+      "contactEmail": "sheik.farooq@pushowl.com",
+      "updatedAt": "2026-03-24"
+    },
+    {
+      "id": "deal-hauslabs",
+      "title": "Haus Labs Spring Glow Up Challenge",
+      "description": "Video challenge: 5 videos = $50, 10 = $100, 20 = $200 bonus + commission. Deadline April 5.",
+      "column": "todo",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Haus Labs",
+      "value": "Up to $200 bonus",
+      "deadline": "2026-04-05",
+      "tags": [
+        "beauty",
+        "challenge"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19d0d022343e6f7c",
+      "linkLabel": "Open email",
+      "updatedAt": "2026-03-24"
+    },
+    {
+      "id": "email-reel2",
+      "title": "Reel Inquiry \u2014 Product Launch",
+      "description": "\u23f3 DRAFT STILL WAITING \u2014 Product launch reel inquiry. Draft at $1,800. Review and send.",
+      "column": "todo",
+      "business": "brand",
+      "type": "email",
+      "value": "$1,800",
+      "tags": [
+        "reel",
+        "inquiry"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#drafts?compose=19d11d168eadf532",
+      "linkLabel": "Open draft \u2192 Send",
+      "updatedAt": "2026-03-24"
+    },
+    {
+      "id": "deal-carrot",
+      "title": "Carrot Express Ambassador",
+      "description": "$300/month credit \u2014 6 month term. 3-5 IG stories/month + reels every 3 months. Starts April 1!",
+      "column": "confirmed",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Alexandria Guerra",
+      "value": "$300/mo",
+      "deadline": "2026-04-01",
+      "tags": [
+        "ambassador",
+        "food"
+      ],
+      "link": "https://mail.google.com/mail/u/0/#all/19cda81c85fbc6f4",
+      "linkLabel": "Open email thread",
+      "updatedAt": "2026-03-21"
+    },
+    {
+      "id": "nuvana-launch",
+      "title": "Nuvana Launch",
+      "description": "AI agency / prompt vault. Launching April 2026. Final prep month.",
+      "column": "in_progress",
+      "business": "nuvana",
+      "type": "milestone",
+      "deadline": "2026-04-30",
+      "tags": [
+        "launch",
+        "ai"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "storytime-miami",
+      "title": "Storytime \u2014 Miami Sales Expansion",
+      "description": "Managing sales expansion into the Miami market.",
+      "column": "in_progress",
+      "business": "storytime",
+      "type": "task",
+      "tags": [
+        "sales",
+        "expansion"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "restaurant-marketing",
+      "title": "Restaurant Marketing Kickoff",
+      "description": "Taking over marketing for restaurant owner (20 locations, starting with 1).",
+      "column": "todo",
+      "business": "restaurant",
+      "type": "task",
+      "tags": [
+        "marketing",
+        "restaurant"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "event-shanti",
+      "title": "Shanti House Wellness Ritual",
+      "description": "Korean Wellness Ritual at Othership Flatiron. TOMORROW March 26.",
+      "column": "todo",
+      "business": "brand",
+      "type": "event",
+      "deadline": "2026-03-26",
+      "tags": [
+        "wellness",
+        "event"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-poppi",
+      "title": "Poppi \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Poppi Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beverage",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-ghost",
+      "title": "Ghost Energy \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Ghost Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beverage",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-alaninu",
+      "title": "Alani Nu \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Alani Nu Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-waterboy",
+      "title": "Waterboy \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Waterboy Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-erewhon",
+      "title": "Erewhon \u2014 Coachella Pitch (REPLIED!)",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Erewhon REPLIED \u2014 they forwarded to the right team!",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Erewhon Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "food",
+        "pitch",
+        "replied"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-google",
+      "title": "Google \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Google Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "tech",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-casetify",
+      "title": "CASETiFY \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "CASETiFY Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "tech",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-saguaro",
+      "title": "Saguaro Palm Springs \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Saguaro Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "hotel",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-acehotel",
+      "title": "Ace Hotel \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Ace Hotel Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "hotel",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-parker",
+      "title": "Parker Palm Springs \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Parker Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "hotel",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-kimpton",
+      "title": "Kimpton Rowan \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Kimpton Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "hotel",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-beis",
+      "title": "B\u00c9IS \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "B\u00c9IS Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "fashion",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-seed",
+      "title": "Seed \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Seed Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-soldj",
+      "title": "Sol de Janeiro \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Sol de Janeiro Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beauty",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-organifi",
+      "title": "Organifi \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Organifi Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-lmnt",
+      "title": "LMNT \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "LMNT Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-sakara",
+      "title": "Sakara Life \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Sakara Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "wellness",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-olipop",
+      "title": "OLIPOP \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "OLIPOP Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beverage",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-milkmakeup",
+      "title": "Milk Makeup \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Milk Makeup Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beauty",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-rarebeauty",
+      "title": "Rare Beauty \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Rare Beauty Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beauty",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    },
+    {
+      "id": "deal-fentybeauty",
+      "title": "Fenty Beauty \u2014 Coachella Pitch",
+      "description": "\u2705 Sent Mar 25 \u2014 Coachella 2026 Creator Partnership pitch. Waiting for response.",
+      "column": "follow_up",
+      "business": "brand",
+      "type": "deal",
+      "contact": "Fenty Team",
+      "value": "TBD",
+      "tags": [
+        "coachella",
+        "beauty",
+        "pitch"
+      ],
+      "updatedAt": "2026-03-20"
+    }
+  ],
+  "events": [
+    {
+      "title": "Shanti House Wellness Ritual",
+      "date": "2026-03-26",
+      "time": "1:30 PM - 3:30 PM",
+      "location": "Othership Flatiron, NYC"
+    },
+    {
+      "title": "Carrot Express Credit Starts",
+      "date": "2026-04-01",
+      "time": "All Day",
+      "location": ""
+    },
+    {
+      "title": "Haus Labs Challenge Deadline",
+      "date": "2026-04-05",
+      "time": "End of Day",
+      "location": ""
+    },
+    {
+      "title": "Camp Poosh VIP Event",
+      "date": "2026-04-11",
+      "time": "1:00 PM - 6:00 PM",
+      "location": "Indio Valley, CA"
+    },
+    {
+      "title": "Nuvana Launch",
+      "date": "2026-04-30",
+      "time": "All Day",
+      "location": ""
+    }
+  ],
+  "stats": {
+    "activeDeals": 30,
+    "potentialRevenue": "$18,000+",
+    "closedThisMonth": 1,
+    "pendingReplies": 3
+  }
+}

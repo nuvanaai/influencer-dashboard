@@ -1,0 +1,371 @@
+{
+  "monthlyGoal": 10000,
+  "currentMonth": "March 2026",
+  "deals": [
+    {
+      "id": "rev-carrot",
+      "brand": "Carrot Express",
+      "type": "Ambassador",
+      "value": 300,
+      "status": "confirmed",
+      "recurring": true,
+      "recurringMonths": 6,
+      "startDate": "2026-04-01",
+      "notes": "$300/month credit for 6 months. Starts April 1."
+    },
+    {
+      "id": "rev-reel1",
+      "brand": "Reel Inquiry (Campaign)",
+      "type": "Reel",
+      "value": 1800,
+      "status": "pending",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Draft sent at $1,800. Awaiting response."
+    },
+    {
+      "id": "rev-reel2",
+      "brand": "Reel Inquiry (Product Launch)",
+      "type": "Reel",
+      "value": 1800,
+      "status": "pending",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Draft sent at $1,800. Awaiting response."
+    },
+    {
+      "id": "rev-magicfit",
+      "brand": "MagicFit AI",
+      "type": "Partnership",
+      "value": 50,
+      "status": "negotiating",
+      "recurring": true,
+      "recurringMonths": 0,
+      "startDate": "",
+      "notes": "$50/reel + 50% affiliate. Asked about higher volume."
+    },
+    {
+      "id": "rev-heiress",
+      "brand": "Heiress Beverly Hills",
+      "type": "Gifting",
+      "value": 600,
+      "status": "confirmed",
+      "recurring": false,
+      "startDate": "2026-03-19",
+      "notes": "$600 gift card. VIP gifting."
+    },
+    {
+      "id": "rev-merabi",
+      "brand": "Nadine Merabi",
+      "type": "Gifting",
+      "value": 500,
+      "status": "confirmed",
+      "recurring": false,
+      "startDate": "2026-03-20",
+      "notes": "New collection gifting. Estimated value."
+    },
+    {
+      "id": "rev-hauslabs",
+      "brand": "Haus Labs",
+      "type": "Challenge",
+      "value": 200,
+      "status": "potential",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Up to $200 bonus + commission. Deadline April 5."
+    },
+    {
+      "id": "rev-blanco",
+      "brand": "Blanco By Nature",
+      "type": "Reel",
+      "value": 1800,
+      "status": "negotiating",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Coachella partnership. Michelle checking with brand. Updated to $1,800."
+    },
+    {
+      "id": "rev-covergirl",
+      "brand": "CoverGirl",
+      "type": "Campaign",
+      "value": 4000,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Follow-up draft ready. Highest priority outreach."
+    },
+    {
+      "id": "rev-innovative",
+      "brand": "Innovative PR",
+      "type": "Gifting",
+      "value": 300,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "PR agency with multiple clients. Follow-up sent."
+    },
+    {
+      "id": "rev-eternal",
+      "brand": "Eternal Water",
+      "type": "Gifting",
+      "value": 200,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "3-month supply offer. Follow-up sent."
+    },
+    {
+      "id": "rev-peppermayo",
+      "brand": "Peppermayo",
+      "type": "Gifting",
+      "value": 400,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Existing relationship. Follow-up sent for spring."
+    },
+    {
+      "id": "rev-nooni",
+      "brand": "Nooni K-Beauty",
+      "type": "Affiliate",
+      "value": 100,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "TikTok partnership for lip oils."
+    },
+    {
+      "id": "rev-zeelool",
+      "brand": "Zeelool Eyewear",
+      "type": "Reel",
+      "value": 1500,
+      "status": "negotiating",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Accepted $1,500 for IG Reel + 30-day bio link. Waiting for next steps."
+    },
+    {
+      "id": "rev-lensmart",
+      "brand": "Lensmart",
+      "type": "Reel",
+      "value": 1800,
+      "status": "negotiating",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Agreed to deliverables. Negotiating rate. Waiting for response."
+    },
+    {
+      "id": "rev-sundaycitizen",
+      "brand": "Sunday Citizen",
+      "type": "Reel",
+      "value": 1800,
+      "status": "pending",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Circled back on collab. Shared reel rate. Waiting for response."
+    },
+    {
+      "id": "rev-bioptimizers",
+      "brand": "BIOptimizers",
+      "type": "Reel",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up on paid TikTok collab. Waiting for Derek's response."
+    },
+    {
+      "id": "rev-wavytalk",
+      "brand": "Wavytalk",
+      "type": "Reel",
+      "value": 1800,
+      "status": "negotiating",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Charlotte replied Mar 26! Passed rates to Francesca who will follow up. Negotiating."
+    },
+    {
+      "id": "rev-nokwol",
+      "brand": "Nokwol",
+      "type": "Reel",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up about leather content. Shared rates."
+    },
+    {
+      "id": "rev-miu-ai",
+      "brand": "Miu AI",
+      "type": "Carousel",
+      "value": 1500,
+      "status": "pending",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Replied with carousel rate ($1,500). Waiting for Maria's response."
+    },
+    {
+      "id": "rev-stevemadden",
+      "brand": "Steve Madden",
+      "type": "Gifting",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Checked in about spring gifting/collab opportunities."
+    },
+    {
+      "id": "rev-cupshe",
+      "brand": "Pull PR / Cupshe",
+      "type": "Gifting",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up with Lulu about new gifting and campaigns."
+    },
+    {
+      "id": "rev-essie",
+      "brand": "essie",
+      "type": "Gifting",
+      "value": 0,
+      "status": "confirmed",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Accepted Liquid Diamonds Collection gifting. Waiting for shipping."
+    },
+    {
+      "id": "rev-laneige",
+      "brand": "Laneige",
+      "type": "Reel",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Pitched Coachella 2026 creator partnership."
+    },
+    {
+      "id": "rev-elf",
+      "brand": "elf Cosmetics",
+      "type": "Campaign",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Pitched Coachella partnership. No current opportunity but staying in touch."
+    },
+    {
+      "id": "rev-charlottetilbury",
+      "brand": "Charlotte Tilbury",
+      "type": "Campaign",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Pitched Coachella 2026 creator partnership."
+    },
+    {
+      "id": "rev-rhode",
+      "brand": "Rhode",
+      "type": "Campaign",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Pitched Coachella 2026 creator partnership."
+    },
+    {
+      "id": "rev-cld",
+      "brand": "CLD PR / Kassandra",
+      "type": "Agency",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up about spring/summer campaigns. Mentioned Camp Poosh."
+    },
+    {
+      "id": "rev-erborian",
+      "brand": "Erborian",
+      "type": "Gifting",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Confirmed interest in 2026 gifting program."
+    },
+    {
+      "id": "rev-espoir",
+      "brand": "Espoir",
+      "type": "Gifting",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up about Be Velvet Cushion Foundation gifting."
+    },
+    {
+      "id": "rev-houseofcontra",
+      "brand": "House of Contra",
+      "type": "Events",
+      "value": 0,
+      "status": "outreach",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Followed up about upcoming spring events."
+    },
+    {
+      "id": "rev-proda-evolve",
+      "brand": "PRODA / Evolve Agency",
+      "type": "Gifting + Paid",
+      "value": 0,
+      "status": "potential",
+      "recurring": false,
+      "startDate": "",
+      "notes": "Brandy from Evolve Agency sent gifting + possible paid collab. Need to reply."
+    },
+    {
+      "id": "rev-typeless",
+      "brand": "Typeless",
+      "type": "Reel",
+      "value": 1800,
+      "status": "negotiating",
+      "recurring": false,
+      "startDate": "",
+      "notes": "AI tool sponsorship. Single reel $1,800 or package $4,800. Aligned with Nuvana."
+    },
+    {
+      "id": "rev-houseofcb",
+      "brand": "House of CB",
+      "type": "Gifting",
+      "value": 500,
+      "status": "confirmed",
+      "recurring": false,
+      "startDate": "2026-03-27",
+      "notes": "Chalet du Soleil collection gifting for Coachella."
+    }
+  ],
+  "history": [
+    {
+      "month": "March 2026",
+      "paid": 0,
+      "gifting": 1100,
+      "pending": 3600,
+      "pipeline": 8150
+    },
+    {
+      "month": "February 2026",
+      "paid": 0,
+      "gifting": 0,
+      "pending": 0,
+      "pipeline": 0
+    },
+    {
+      "month": "January 2026",
+      "paid": 0,
+      "gifting": 500,
+      "pending": 0,
+      "pipeline": 0
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "dreamBrands": [
+    {"id": "out-covergirl", "brand": "CoverGirl", "contact": "", "email": "", "category": "beauty", "status": "drafted", "lastAction": "2026-03-23", "notes": "Follow-up draft ready in Gmail. Top priority.", "link": ""},
+    {"id": "out-skims", "brand": "Skims", "contact": "", "email": "creators@skims.com", "category": "fashion", "status": "idea", "lastAction": "", "notes": "Previous collab history. Re-engage for spring."},
+    {"id": "out-revolve", "brand": "Revolve", "contact": "", "email": "influencer@revolve.com", "category": "fashion", "status": "idea", "lastAction": "", "notes": "Previous collab. Revolve Festival coming up."},
+    {"id": "out-fourseas", "brand": "Four Seasons", "contact": "", "email": "", "category": "lifestyle", "status": "idea", "lastAction": "", "notes": "Previous collab. Pitch summer content series."},
+    {"id": "out-alo", "brand": "Alo Yoga", "contact": "", "email": "influencer@aloyoga.com", "category": "wellness", "status": "idea", "lastAction": "", "notes": "Previous collab. Wellness content angle."},
+    {"id": "out-clinique", "brand": "Clinique", "contact": "", "email": "", "category": "beauty", "status": "idea", "lastAction": "", "notes": "Previous collab. Spring skincare campaign."},
+    {"id": "out-valentino", "brand": "Valentino Beauty", "contact": "", "email": "", "category": "beauty", "status": "idea", "lastAction": "", "notes": "Previous collab. Luxury beauty angle."},
+    {"id": "out-volvo", "brand": "Volvo", "contact": "", "email": "", "category": "lifestyle", "status": "idea", "lastAction": "", "notes": "Previous collab. NYC lifestyle content."},
+    {"id": "out-goodam", "brand": "Good American", "contact": "", "email": "pr@goodamerican.com", "category": "fashion", "status": "idea", "lastAction": "", "notes": "Previous collab. Spring/summer collection."},
+    {"id": "out-msc", "brand": "MSC Cruises", "contact": "", "email": "", "category": "travel", "status": "idea", "lastAction": "", "notes": "Previous collab. Summer cruise content."}
+  ],
+  "activeOutreach": [
+    {"id": "reach-innovative", "brand": "Innovative PR", "contact": "Ashly Yaraghchi", "email": "ashly@innovative-pr.com", "category": "pr-agency", "status": "sent", "lastAction": "2026-03-23", "notes": "PR agency with multiple clients. Follow-up sent.", "link": "https://mail.google.com/mail/u/0/#all/19bd947fa941e531"},
+    {"id": "reach-pullpr", "brand": "Pull PR (Cupshe + brands)", "contact": "Lulu Buckley", "email": "lulu@pull-pr.com", "category": "pr-agency", "status": "sent", "lastAction": "2026-03-23", "notes": "Multi-brand PR agency. Follow-up sent.", "link": "https://mail.google.com/mail/u/0/#all/19a4c51895c0bd1f"},
+    {"id": "reach-eternal", "brand": "Eternal Water", "contact": "Audrey", "email": "influencer@eternalwater.com", "category": "wellness", "status": "sent", "lastAction": "2026-03-23", "notes": "3-month supply offer. Follow-up sent.", "link": "https://mail.google.com/mail/u/0/#all/19bdd4cbdf01ae3a"},
+    {"id": "reach-peppermayo", "brand": "Peppermayo", "contact": "PR Team", "email": "pr@peppermayo.com.au", "category": "fashion", "status": "sent", "lastAction": "2026-03-23", "notes": "Existing relationship. Spring follow-up sent.", "link": ""},
+    {"id": "reach-nooni", "brand": "Nooni K-Beauty", "contact": "Iris", "email": "mkt.nooni@memebox.com", "category": "beauty", "status": "sent", "lastAction": "2026-03-23", "notes": "TikTok lip oil partnership. Follow-up sent.", "link": "https://mail.google.com/mail/u/0/#all/19a9f92893f3267d"},
+    {"id": "reach-halara", "brand": "Halara", "contact": "Yuki", "email": "marketing.yuki@halara.com", "category": "fashion", "status": "sent", "lastAction": "2026-03-23", "notes": "TikTok affiliate. $300 gift card + 10%. Follow-up sent.", "link": "https://mail.google.com/mail/u/0/#all/19b07feae4f96b25"},
+    {"id": "reach-blanco", "brand": "Blanco By Nature", "contact": "Michelle Reed", "email": "influencers@lemonadds.com", "category": "fashion", "status": "waiting", "lastAction": "2026-03-20", "notes": "Coachella partnership. She's checking with brand. Rate updated to $1,800.", "link": "https://mail.google.com/mail/u/0/#all/19cdb1ca8be2ee3c"}
+  ]
+}

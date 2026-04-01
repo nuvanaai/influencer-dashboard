@@ -1,0 +1,58 @@
+{
+  "events": [
+    {"id": "evt-cooper", "title": "Discovery Call — Cooper T (LeadSuite)", "date": "2026-03-24", "time": "9:00 PM - 9:45 PM", "location": "Google Meet", "category": "work", "color": "#3b82f6", "notes": "Lead generation call. Google Meet link in calendar invite."},
+    {"id": "evt-shanti", "title": "Shanti House Wellness Ritual", "date": "2026-03-26", "time": "1:30 PM - 3:30 PM", "location": "Othership Flatiron, NYC", "category": "event", "color": "#8b5cf6", "notes": "Korean wellness ritual. Registration approved."},
+    {"id": "evt-carrot-start", "title": "Carrot Express Credit Starts", "date": "2026-04-01", "time": "All Day", "location": "", "category": "deadline", "color": "#22c55e", "notes": "$300/month ambassador credit begins. Start creating content."},
+    {"id": "evt-hauslabs", "title": "Haus Labs Challenge Deadline", "date": "2026-04-05", "time": "End of Day", "location": "", "category": "deadline", "color": "#ef4444", "notes": "Spring Glow Up Challenge ends. 5 videos = $50, 10 = $100, 20 = $200 bonus."},
+    {"id": "evt-poosh", "title": "Camp Poosh VIP Event", "date": "2026-04-11", "time": "1:00 PM - 6:00 PM", "location": "Indio Valley, CA (Desert)", "category": "event", "color": "#ec4899", "notes": "Kourtney Kardashian VIP event. Private estate. RSVP sent."},
+    {"id": "evt-nuvana", "title": "Nuvana Launch", "date": "2026-04-30", "time": "All Day", "location": "", "category": "milestone", "color": "#3b82f6", "notes": "AI agency / prompt vault goes live."},
+
+    {"id": "post-carrot1", "title": "Carrot Express — Nolita Spotlight", "date": "2026-04-03", "time": "", "location": "", "category": "content", "color": "#f97316", "notes": "First ambassador post. Spotlight the Nolita location. IG Stories (3-5)."},
+    {"id": "post-merabi", "title": "Nadine Merabi — New Collection", "date": "2026-03-28", "time": "", "location": "", "category": "content", "color": "#f97316", "notes": "Pick pieces from collection, create content. Contact: Lyla Heys."},
+    {"id": "post-heiress", "title": "Heiress Beverly Hills — Gifting Post", "date": "2026-03-30", "time": "", "location": "", "category": "content", "color": "#f97316", "notes": "$600 gift card piece. Select from site and create content."},
+    {"id": "post-poosh-content", "title": "Camp Poosh — Event Content", "date": "2026-04-12", "time": "", "location": "", "category": "content", "color": "#f97316", "notes": "Post event content from Camp Poosh. Reels + Stories."},
+    {"id": "post-carrot2", "title": "Carrot Express — Monthly Reel", "date": "2026-04-15", "time": "", "location": "", "category": "content", "color": "#f97316", "notes": "Dedicated reel or post tagging Carrot Express. Quarterly deliverable."},
+
+    {"id": "bill-rent", "title": "Rent Due", "date": "2026-04-01", "time": "", "location": "", "category": "bill", "color": "#6b7280", "notes": "Monthly rent payment."},
+    {"id": "bill-rent-mar", "title": "Rent Due", "date": "2026-03-01", "time": "", "location": "", "category": "bill", "color": "#6b7280", "notes": "Monthly rent payment."},
+
+    {"id": "work-storytime", "title": "Storytime — Miami Meeting", "date": "2026-04-07", "time": "2:00 PM", "location": "Virtual", "category": "work", "color": "#22c55e", "notes": "Sales expansion strategy for Miami market."},
+    {"id": "work-restaurant", "title": "Restaurant Marketing — First Meeting", "date": "2026-04-02", "time": "11:00 AM", "location": "NYC", "category": "work", "color": "#f97316", "notes": "Kickoff meeting for restaurant marketing (20 locations, starting with 1)."},
+    {"id": "work-nuvana-prep", "title": "Nuvana — Final Beta Review", "date": "2026-04-14", "time": "", "location": "", "category": "work", "color": "#3b82f6", "notes": "Final review before launch. Check all prompts and UI."},
+    {"id": "work-nuvana-marketing", "title": "Nuvana — Launch Marketing Prep", "date": "2026-04-21", "time": "", "location": "", "category": "work", "color": "#3b82f6", "notes": "Prepare launch content, social posts, and email campaign."},
+
+    {"id": "follow-covergirl", "title": "Follow Up — CoverGirl", "date": "2026-03-24", "time": "", "location": "", "category": "followup", "color": "#ef4444", "notes": "SEND the CoverGirl draft! Biggest brand opportunity."},
+    {"id": "follow-brands", "title": "Send All Brand Follow-Ups", "date": "2026-03-24", "time": "", "location": "", "category": "followup", "color": "#ef4444", "notes": "30 drafts ready in Gmail. Review and send all today."},
+    {"id": "follow-blanco", "title": "Follow Up — Blanco By Nature", "date": "2026-03-25", "time": "", "location": "", "category": "followup", "color": "#ef4444", "notes": "Michelle is checking with brand. Follow up if no response."},
+
+    {"id": "evt-coachella1", "title": "🌸 Coachella Weekend 1", "date": "2026-04-10", "time": "All Weekend", "location": "Empire Polo Club, Indio, CA", "category": "event", "color": "#ec4899", "notes": "FOCUS: Content + brand deals. Strategy: Use Coachella to get brand deals. TO DO: Outfits planned, brand partnerships locked, content calendar ready."},
+    {"id": "evt-coachella1-end", "title": "🌸 Coachella Weekend 1", "date": "2026-04-11", "time": "", "location": "Indio, CA", "category": "event", "color": "#ec4899", "notes": "Day 2"},
+    {"id": "evt-coachella1-end2", "title": "🌸 Coachella Weekend 1", "date": "2026-04-12", "time": "", "location": "Indio, CA", "category": "event", "color": "#ec4899", "notes": "Day 3"},
+    {"id": "evt-coachella2", "title": "🌸 Coachella Weekend 2", "date": "2026-04-17", "time": "All Weekend", "location": "Empire Polo Club, Indio, CA", "category": "event", "color": "#ec4899", "notes": "Fresh outfits. Review Weekend 1 content performance. Follow up with brands."},
+    {"id": "evt-coachella2-d2", "title": "🌸 Coachella Weekend 2", "date": "2026-04-18", "time": "", "location": "Indio, CA", "category": "event", "color": "#ec4899", "notes": "Day 2"},
+    {"id": "evt-coachella2-d3", "title": "🌸 Coachella Weekend 2", "date": "2026-04-19", "time": "", "location": "Indio, CA", "category": "event", "color": "#ec4899", "notes": "Day 3"},
+
+    {"id": "evt-metgala", "title": "✨ Met Gala", "date": "2026-05-04", "time": "Evening", "location": "The Met, New York, NY", "category": "event", "color": "#8b5cf6", "notes": "PEAK LUXURY. TO DO: Dress secured, glam team booked, content strategy ready, networking targets."},
+    {"id": "evt-cannes", "title": "⭐ Cannes Film Festival (May 12-23)", "date": "2026-05-12", "time": "12 days", "location": "Cannes, France", "category": "event", "color": "#8b5cf6", "notes": "STRATEGY: Use Cannes to ELEVATE STATUS. Stay South of France entire time through Monaco GP. TO DO: Red carpet gowns, brand partnerships, accommodation, networking contacts."},
+    {"id": "evt-cannes-mid", "title": "⭐ Cannes Film Festival", "date": "2026-05-17", "time": "", "location": "Cannes, France", "category": "event", "color": "#8b5cf6", "notes": "Mid-festival. Content review."},
+    {"id": "evt-monaco", "title": "🏎️ Monaco Grand Prix", "date": "2026-05-21", "time": "Race Weekend", "location": "Monte Carlo, Monaco", "category": "event", "color": "#8b5cf6", "notes": "Continue South of France stay. Luxury outfits, yacht/party invites, elite networking."},
+
+    {"id": "evt-primavera", "title": "🎵 Primavera Sound", "date": "2026-06-04", "time": "3 days", "location": "Barcelona, Spain", "category": "event", "color": "#ec4899", "notes": "Festival outfits + brand content."},
+    {"id": "evt-govball", "title": "🎵 Governors Ball", "date": "2026-06-05", "time": "3 days", "location": "Flushing Meadows, Queens, NYC", "category": "event", "color": "#ec4899", "notes": "NYC festival — easy logistics. Brand partnerships + content."},
+    {"id": "evt-stropez", "title": "🌴 Saint-Tropez Season (All June)", "date": "2026-06-01", "time": "All Month", "location": "Saint-Tropez, France", "category": "event", "color": "#22c55e", "notes": "FOCUS: Brand trips + lifestyle content. Resort/beachwear outfits."},
+
+    {"id": "evt-wireless", "title": "🎵 Wireless Festival", "date": "2026-07-03", "time": "3 days", "location": "London, UK", "category": "event", "color": "#ec4899", "notes": "UK brand opportunities. Festival outfits."},
+    {"id": "evt-ibiza", "title": "☀️ Ibiza / Mykonos / Capri Season (All July)", "date": "2026-07-01", "time": "All Month", "location": "Ibiza / Mykonos / Capri", "category": "event", "color": "#f97316", "notes": "PEAK SOCIAL + PARTY SEASON. STRATEGY: Use summer to MONETIZE. Exposure + networking + $$$. GO ALL-IN on July hotspots."},
+    {"id": "evt-tomorrowland1", "title": "🎵 Tomorrowland Weekend 1", "date": "2026-07-17", "time": "3 days", "location": "Boom, Belgium", "category": "event", "color": "#ec4899", "notes": "Peak exposure + networking + $$$"},
+    {"id": "evt-tomorrowland2", "title": "🎵 Tomorrowland Weekend 2", "date": "2026-07-24", "time": "3 days", "location": "Boom, Belgium", "category": "event", "color": "#ec4899", "notes": "Fresh outfits. Review Weekend 1 content."},
+    {"id": "evt-lolla", "title": "🎵 Lollapalooza", "date": "2026-07-30", "time": "4 days", "location": "Grant Park, Chicago, IL", "category": "event", "color": "#ec4899", "notes": "Transition to elegance month. Don't overdo — save energy for September!"},
+
+    {"id": "evt-rest", "title": "🎬 August — REST + Prep for Fashion Season", "date": "2026-08-03", "time": "All Month", "location": "", "category": "milestone", "color": "#6b7280", "notes": "SAVE ENERGY FOR SEPTEMBER! Prep Fashion Week outfits, book showroom appointments, schedule brand meetings."},
+    {"id": "evt-venice", "title": "🎥 Venice Film Festival", "date": "2026-08-26", "time": "11 days", "location": "Venice, Italy", "category": "event", "color": "#8b5cf6", "notes": "Luxury + fashion transition. Red carpet gowns, glam team, brand partnerships."},
+    {"id": "evt-tiff", "title": "🎥 TIFF — Toronto Film Festival", "date": "2026-09-04", "time": "11 days", "location": "Toronto, Canada", "category": "event", "color": "#8b5cf6", "notes": "Red carpet looks, premieres, networking."},
+    {"id": "evt-nyfw", "title": "👠 NEW YORK FASHION WEEK", "date": "2026-09-11", "time": "6 days", "location": "New York, NY", "category": "event", "color": "#ec4899", "notes": "CONVERT VISIBILITY INTO JOBS. 5-7 outfits minimum, glam team, show invites, brand meetings, street style ready. THIS IS WHERE YOU LOCK CONTRACTS."},
+    {"id": "evt-lfw", "title": "👠 LONDON FASHION WEEK", "date": "2026-09-17", "time": "5 days", "location": "London, UK", "category": "event", "color": "#ec4899", "notes": "Travel NYC → London. Different outfits from NYFW. UK brand meetings."},
+    {"id": "evt-mfw", "title": "👠 MILAN FASHION WEEK", "date": "2026-09-22", "time": "7 days", "location": "Milan, Italy", "category": "event", "color": "#ec4899", "notes": "Travel London → Milan. Italian brand meetings. Fresh outfits."},
+    {"id": "evt-pfw", "title": "👠 PARIS FASHION WEEK", "date": "2026-09-29", "time": "8 days", "location": "Paris, France", "category": "event", "color": "#ec4899", "notes": "GRAND FINALE. Haute couture looks, French brand meetings (Chanel, Valentino, Dior). Lock contracts for Q4."}
+  ]
+}
