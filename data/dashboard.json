@@ -1,0 +1,13 @@
+{
+  "cards": [],
+  "calendar": [
+    {
+      "id": "evt-001",
+      "title": "Nail Appointment",
+      "date": "2026-04-17",
+      "time": "13:00",
+      "category": "personal",
+      "description": "Nail appointment"
+    }
+  ]
+}
