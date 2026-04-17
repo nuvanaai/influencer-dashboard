@@ -7,7 +7,9 @@ const PORT = 3333;
 const MIME = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml' };
 
 http.createServer((req, res) => {
-  const filePath = path.join(__dirname, req.url === '/' ? 'index.html' : req.url);
+  let urlPath = req.url.split('?')[0];
+  if (urlPath === '/' || urlPath.endsWith('/')) urlPath += 'index.html';
+  const filePath = path.join(__dirname, urlPath);
   const ext = path.extname(filePath);
   fs.readFile(filePath, (err, data) => {
     if (err) { res.writeHead(404); res.end('Not found'); return; }
