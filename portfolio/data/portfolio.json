@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-04-17",
+  "asOf": "2026-04-22",
   "holdings": [
     { "name": "Cash", "ticker": null, "type": "cash", "weight": 20.7 },
     { "name": "Adobe Inc", "ticker": "ADBE", "type": "long", "weight": 18.0 },
@@ -21,123 +21,124 @@
     { "name": "CoreWeave Inc", "ticker": "CRWV", "type": "long_puts", "weight": 1.4 }
   ],
   "dailyReview": {
-    "date": "2026-04-17",
-    "headline": "AI shorts under pressure as Meta-CoreWeave and Firefly Assistant reshape narratives",
-    "summary": "Portfolio is pushing against the tape on the AI short leg (NVDA, CRWV) but the long book — Adobe, Uber, commodities, and midstream energy — is hitting on multiple catalysts today. Net cash + gold/silver + oil names are providing ballast into a week marked by Middle East risk, record metals, and a fresh leg of AI capex headlines.",
+    "date": "2026-04-22",
+    "headline": "Metals flush, oil pops on Hormuz, Adobe buyback brightens — AI shorts still hurting",
+    "summary": "Sharp one-day pullback in silver (-9.4%) and gold (-3%) on Apr 21 took the wind out of the metals sleeve, but the move looks technical after a multi-month run. Oil ripped 5% on Strait of Hormuz escalation — strong tailwind for the energy longs. Adobe announced a $25B buyback (Apr 21) and is base-building. AI short leg remains the principal pain point: NVDA at $202 / $4.9T cap, CRWV +48% YTD, MU near all-time highs.",
     "risks": [
-      "NVDA on a 10-day, +18% win streak; short leg (-15.8%) plus long-dated puts (4.6%) is the largest concentrated risk in the book.",
-      "CoreWeave's $21B Meta deal + $6B Jane Street contract is pushing CRWV higher — both the short (-15.5%) and puts (1.4%) are fighting a momentum tape.",
-      "Brent ~$97 with a forecast peak of $115/b in Q2 helps the energy longs (RIG, CNE, USO, OKE, ET) but amplifies macro inflation risk."
+      "Silver -9.4% and gold -3% in one session (Apr 21) — SLV at $69.34, GLD at $453.84. Watch for further unwind if Iran de-escalation headlines cross.",
+      "CRWV completed another $1B of 9.75% notes (total now $2.75B); Q1 earnings May 7 — debt-funded buildout continues to push the short tape against you.",
+      "MU printing near all-time highs with traders eyeing a $480–$500 breakout; long-dated puts (2.9%) decaying into momentum."
     ],
     "bright_spots": [
-      "Adobe +3.5% on Firefly AI Assistant launch (Apr 15) — largest long position (18%) catching a real product bid after a rough YTD.",
-      "Uber +6% on the week after a $10B AV commitment and Lucid/Pony AI/Rivian partnerships — validates the long thesis at 12.5%.",
-      "Gold at $4,781/oz and silver at $79.60/oz both near records; SLV +143% YoY — the metals sleeve is doing its hedging job.",
-      "Oil near $95 WTI on Iran negotiation doubts — directly supports RIG, CNE, USO and indirectly OKE/ET via midstream volumes."
+      "Adobe $25B buyback announced Apr 21, +4% after-hours; stock $247, +1.7% on the day. Validates the 18% long.",
+      "WTI +5% to $88.80 on Apr 21 after Hormuz vessel attacks; Brent $96 — direct bid for RIG, CNE.L, USO and supportive for OKE / ET.",
+      "Uber confirmed $500M / 11.5% stake in Lucid + 35k-vehicle robotaxi commitment — long thesis (12.5%) intact at $77.49.",
+      "Hedge funds reportedly dumping NVDA into the macro/AI tug-of-war — flow context that supports the short leg even with price grinding higher."
     ],
     "actions_to_consider": [
-      "Re-evaluate short sizing on NVDA/CRWV ahead of NVDA's Q1 FY27 print (guided $78B revenue ±2%). The puts provide convexity if the thesis plays out on a delayed timeline.",
-      "Altria ex-dividend date passed (record Mar 25); $1.06/share payable Apr 30 — confirm the position is held for the payout.",
-      "ONEOK prints Q1 on Apr 28 — consider whether to trim or add into the catalyst given +20% YTD run."
+      "Decide on metals adds vs. trimming after the Apr-21 flush; the YoY moves (SLV +135%, GLD +43%) leave room for further mean-reversion.",
+      "ONEOK Q1 earnings Apr 28 — choose to trim into the catalyst or hold for the dividend-growth signal.",
+      "CoreWeave Q1 prints May 7; consider rolling the long-dated puts further out or taking some short exposure off ahead of a likely beat.",
+      "Adobe buyback is open until April 2030 — sizing-up case strengthens if shares hold the $245–$250 base."
     ]
   },
   "news": [
     {
-      "date": "2026-04-15",
-      "headline": "Adobe unveils Firefly AI Assistant with Anthropic partnership; stock +3.5%",
+      "date": "2026-04-21",
+      "headline": "Adobe approves new $25B stock repurchase program; shares +4% AH",
       "positions": ["ADBE"],
       "impact": "positive",
-      "summary": "Conversational creative-agent interface across Photoshop, Premiere, Lightroom, Illustrator. Now hosts 30+ third-party models including Google Veo 3.1, Kling 3.0, ElevenLabs. Shares closed $243.96, still 42% below May 2025 highs.",
-      "source": "Adobe Newsroom",
-      "url": "https://news.adobe.com/news/2026/04/adobe-new-creative-agent"
+      "summary": "Buyback authorized through April 30, 2030. Stock at $247.12 with 1-week return +3.55%. Analyst 12-mo PT $349.29 (~+40%). Firefly AI Assistant + Anthropic partnership (Apr 15) still feeding the narrative.",
+      "source": "StockTitan",
+      "url": "https://www.stocktitan.net/news/ADBE/adobe-announces-new-25-billion-stock-repurchase-6w79wuxrdx89.html"
     },
     {
-      "date": "2026-04-14",
-      "headline": "CoreWeave and Meta announce $21B expanded AI infrastructure agreement through 2032",
-      "positions": ["CRWV"],
-      "impact": "negative_for_short",
-      "summary": "CRWV also signed a $6B Jane Street cloud deal plus $1B equity stake at $109/share. Revenue backlog now $66.8B, 4x a year ago. D.A. Davidson PT raised to $175.",
-      "source": "CoreWeave Investors",
-      "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-and-Meta-Announce-21-Billion-Expanded-AI-Infrastructure-Agreement/default.aspx"
-    },
-    {
-      "date": "2026-04-14",
-      "headline": "NVIDIA stock on 10-day winning streak, +18% over the stretch",
-      "positions": ["NVDA"],
-      "impact": "negative_for_short",
-      "summary": "Data center revenue +75% YoY to $62.3B in Q4 FY26 (88% of total). Median analyst PT $265 implies ~50% upside. Q1 FY27 guide: $78B ±2%, no China data-center contribution assumed.",
-      "source": "CNBC",
-      "url": "https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
-    },
-    {
-      "date": "2026-04-15",
-      "headline": "Uber commits $10B to autonomous vehicles; +6% on the week",
-      "positions": ["UBER"],
-      "impact": "positive",
-      "summary": "$2.5B for AV-firm equity stakes + $7.5B for fleet expansion. New Lucid (35k vehicles), Pony AI (Europe robotaxi), Rivian, and Baidu partnerships. Citizens reiterated $100 PT. Plan: self-driving in 28 cities by 2028.",
-      "source": "GuruFocus",
-      "url": "https://www.gurufocus.com/news/8795671/uber-invests-over-10-billion-in-autonomous-vehicles-to-transform-business-model"
-    },
-    {
-      "date": "2026-04-16",
-      "headline": "WTI crude steady near $92; Brent $97 — EIA sees Q2 peak of $115/b",
+      "date": "2026-04-21",
+      "headline": "WTI crude jumps >5% to $88.80 after Strait of Hormuz vessel attacks",
       "positions": ["RIG", "CNE.L", "USO", "OKE", "ET"],
       "impact": "positive",
-      "summary": "Middle East disruptions + doubts on US-Iran talks lifted WTI as high as $95 intraday. Brent-WTI spread widened to $12. Forecast Brent peak $115/b in Q2 2026 before easing as shut-ins abate.",
+      "summary": "US-Iran tensions escalated after attacks on commercial vessels. Brent ~$96.26. EIA forecast Brent-WTI spread peaks $15/b in April on production disruptions.",
       "source": "Fortune",
-      "url": "https://fortune.com/article/price-of-oil-04-16-2026/"
+      "url": "https://fortune.com/article/price-of-oil-04-20-2026/"
+    },
+    {
+      "date": "2026-04-21",
+      "headline": "Silver -9.4%, gold -3% in one session — sharp pullback off record highs",
+      "positions": ["SLV", "GLD"],
+      "impact": "negative",
+      "summary": "SLV closed $69.34 (-7.22), GLD $453.84 (-13.79). Silver still +135% YoY, gold +43% YoY. Profit-taking after multi-month run; geopolitical de-escalation chatter cited.",
+      "source": "Fortune",
+      "url": "https://fortune.com/article/current-price-of-silver-4-21-2026/"
+    },
+    {
+      "date": "2026-04-21",
+      "headline": "Uber confirms $500M Lucid stake + 35,000-robotaxi commitment",
+      "positions": ["UBER"],
+      "impact": "positive",
+      "summary": "Equity stake raised to ~11.5% (~37.8M shares) with a $200M option. UBER $77.49; analyst average Strong Buy, 12-mo PT $107 (~+39%).",
+      "source": "Motley Fool",
+      "url": "https://www.fool.com/coverage/stock-market-today/2026/04/21/stock-market-today-april-21-lucid-group-jumps-after-uber-invests-500-million-and-commits-to-35000-robotaxis/"
+    },
+    {
+      "date": "2026-04-21",
+      "headline": "CoreWeave prices $1B more 9.750% senior notes; total reaches $2.75B",
+      "positions": ["CRWV"],
+      "impact": "negative_for_short",
+      "summary": "Tranche priced at 102% of principal. Stock $117.43; 1-month +44%, YTD +48%, 1-year TSR +231%. Wolfe Research initiated Outperform with $150 PT. Q1 results due May 7.",
+      "source": "StockTitan",
+      "url": "https://www.stocktitan.net/sec-filings/CRWV/8-k-core-weave-inc-reports-material-event-0161dfbf1011.html"
+    },
+    {
+      "date": "2026-04-21",
+      "headline": "NVIDIA stuck in macro-vs-AI tug-of-war; hedge funds reportedly dumping",
+      "positions": ["NVDA"],
+      "impact": "mixed",
+      "summary": "NVDA $202.06 with $4.91T market cap. Marvell-Alphabet custom-AI-chip collaboration adding competitive pressure. 38-analyst average Strong Buy, 12-mo PT $266 (~+32%). FY26 revenue $215.94B (+65% YoY).",
+      "source": "Motley Fool",
+      "url": "https://www.fool.com/investing/2026/04/21/massive-news-nvidia-just-proved-its-growth-story-i/"
+    },
+    {
+      "date": "2026-04-21",
+      "headline": "Micron near all-time highs; HBM4 volume production for NVIDIA Vera Rubin underway",
+      "positions": ["MU"],
+      "impact": "negative_for_puts",
+      "summary": "2026 HBM capacity fully sold under non-cancellable contracts. Traders watching $480–$500 breakout. Q2 FY26 revenue $23.9B (+196% YoY).",
+      "source": "TipRanks",
+      "url": "https://www.tipranks.com/news/micron-stock-mu-hits-new-all-time-high-can-the-steller-run-continue-in-2026"
+    },
+    {
+      "date": "2026-04-20",
+      "headline": "Lululemon launches Mexico e-commerce site; 8 new MX stores planned",
+      "positions": ["LULU"],
+      "impact": "positive",
+      "summary": "lululemon.mx live with full apparel/footwear/accessories. Part of 15-store FY26 North America expansion. CEO Maestrini bought 3,275 shares @ $151.02 on Apr 1. Stock $169.38.",
+      "source": "Yahoo Finance",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/lululemon-lulu-launches-official-e-115623550.html"
     },
     {
       "date": "2026-04-17",
-      "headline": "Silver tops $79/oz, gold above $4,780 — safe-haven surge continues",
-      "positions": ["SLV", "GLD"],
+      "headline": "ONEOK Q1 2026 earnings due Apr 28",
+      "positions": ["OKE"],
       "impact": "positive",
-      "summary": "SLV trading at $74.97 (up from $71.24 prior close). Silver +143% YoY. Gold +$1,551 YoY on Islamabad peace talks and central-bank rate expectations.",
-      "source": "Financial Content",
-      "url": "https://markets.financialcontent.com/stocks/article/marketminute-2026-4-14-safe-haven-surge-gold-and-silver-hit-record-highs-as-islamabad-peace-talks-reshape-global-markets"
-    },
-    {
-      "date": "2026-04-15",
-      "headline": "Micron surges 9% toward $500 on HBM4 volume production for NVIDIA Vera Rubin",
-      "positions": ["MU"],
-      "impact": "negative_for_puts",
-      "summary": "MU closed $465.66, +20% on the week. HBM4 36GB 12H memory gives 2.8 TB/s (2.3x HBM3E). 2026 HBM capacity fully sold under non-cancellable contracts. Median analyst PT $517.50.",
-      "source": "FX Leaders",
-      "url": "https://www.fxleaders.com/news/2026/04/15/micron-surges-9-toward-500-as-ai-memory-super-cycle-defies-market-norms/"
-    },
-    {
-      "date": "2026-04-02",
-      "headline": "ONEOK and Energy Transfer flagged as top energy picks for April",
-      "positions": ["OKE", "ET"],
-      "impact": "positive",
-      "summary": "OKE +20% YTD with 4.7% yield and 3–4% annual dividend growth plan; Q1 earnings Apr 28. ET +15% YTD with ~7% distribution yield.",
+      "summary": "OKE +20% YTD, 4.7% yield, plans 3–4% annual dividend growth. Both OKE and ET flagged as April top picks among midstream names.",
       "source": "Motley Fool",
       "url": "https://www.fool.com/investing/2026/04/02/2-energy-stocks-to-buy-in-april/"
     },
     {
       "date": "2026-04-10",
-      "headline": "Altria declares $1.06 quarterly dividend payable April 30",
+      "headline": "Altria $1.06 quarterly dividend payable April 30",
       "positions": ["MO"],
       "impact": "positive",
-      "summary": "Record date was March 25, 2026. Annual dividend $4.24, yield 6.54%. Q1 2026 earnings due ahead of the payment.",
+      "summary": "Record date Mar 25, 2026. Annual $4.24 / 6.54% yield. Q1 earnings due ahead of payment.",
       "source": "Altria IR",
       "url": "https://investor.altria.com/press-releases/news-details/2026/Altria-Declares-Regular-Quarterly-Dividend-of-1-06-Per-Share/default.aspx"
-    },
-    {
-      "date": "2026-04-07",
-      "headline": "Lululemon down 22.8% YTD, 34.7% over past year after soft FY26 guide",
-      "positions": ["LULU"],
-      "impact": "negative",
-      "summary": "Q4 GAAP EPS $5.01 beat $4.79 consensus but revenue softer; weaker FY26 guide. Texas PFAS investigation adds legal/reputational risk. 25-analyst average: Hold, 12-mo PT $190.26 (~+18%).",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/stocks/NASDAQ/LULU/earnings/"
     },
     {
       "date": "2026-04-10",
       "headline": "Stride opens 2026-27 enrollment across OR, MI, ID, CO; LMS issues linger",
       "positions": ["LRN"],
       "impact": "mixed",
-      "summary": "Multi-state virtual school enrollment now open for next school year. 2025 LMS upgrade disruption still weighing on fall-term revenue. Prior-year enrollment growth: General Ed +12.8%, Career Learning +32%.",
+      "summary": "Multi-state virtual school enrollment now open for next school year. 2025 LMS upgrade disruption still weighing on fall-term revenue.",
       "source": "StockTitan",
       "url": "https://www.stocktitan.net/news/LRN/"
     }
