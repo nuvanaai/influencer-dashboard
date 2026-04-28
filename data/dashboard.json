@@ -1,6 +1,6 @@
 {
   "gmailAccount": 1,
-  "lastUpdated": "2026-04-27T19:45:00-04:00",
+  "lastUpdated": "2026-04-28T10:00:00-04:00",
   "sentCards": {},
   "dismissedCards": {},
   "cards": [
@@ -22,20 +22,20 @@
     },
     {
       "id": "deal-amt-reply",
-      "title": "AMT — SELENA REPLIED! Send Rate Breakdown 🔥",
-      "description": "🔥 URGENT: Selena replied Apr 24 and is ready to move forward! She needs: (1) whitelisting fee broken out separately and (2) IG/TikTok audience geography screenshots attached. Draft ready: $1,800 base + $500 for 1-month paid whitelisting = $2,300 total. Link in bio 3 months included. IMPORTANT: Attach your IG + TikTok analytics screenshots showing audience geography BEFORE sending this draft.",
+      "title": "AMT — New Draft Ready (Attach Screenshots!) 🔥",
+      "description": "🔥 FRESH DRAFT in Gmail — Selena followed up Apr 28 (today!) complimenting your Chanel earrings video and asking for your whitelisting rate + audience screenshots. New draft responds directly to her message. Rate breakdown: $1,800 base (1x IG Reel + TikTok cross-post, 3mo organic) + $500 whitelisting add-on (1mo paid rights) + link in bio 3mo FREE = $2,300 total. ⚠️ BEFORE SENDING: (1) Attach your IG + TikTok audience geography screenshots from HypeAuditor or Instagram Insights. (2) Delete the reminder line at the top of the draft.",
       "column": "todo",
       "business": "brand",
       "type": "deal",
       "contact": "Selena Djukic (AMT)",
       "contactEmail": "influence@joinamtai.com",
       "value": "$2,300",
-      "tags": ["paid", "tiktok", "reel", "whitelisting", "urgent", "replied"],
+      "tags": ["paid", "tiktok", "reel", "whitelisting", "urgent", "replied", "screenshot-needed"],
       "link": "https://mail.google.com/mail/u/0/#all/19db151a185b3755",
-      "linkLabel": "Open AMT thread — Selena's reply",
+      "linkLabel": "Open AMT thread — Selena's Apr 28 message",
       "draftLink": "https://mail.google.com/mail/u/0/#drafts",
-      "draftLabel": "Review rate breakdown draft — ATTACH SCREENSHOTS FIRST",
-      "updatedAt": "2026-04-27"
+      "draftLabel": "⚠️ Open draft — ATTACH SCREENSHOTS before sending",
+      "updatedAt": "2026-04-28"
     },
     {
       "id": "deal-heyshape",
