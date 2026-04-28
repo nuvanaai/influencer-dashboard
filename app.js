@@ -22,6 +22,19 @@ let calendarData = null;
 let revenueData = null;
 let outreachData = null;
 let growthData = null;
+let financeData = null;
+let earningsData = null;
+
+function gmailBase() {
+  const idx = dashboardData?.gmailAccount ?? 1;
+  return `https://mail.google.com/mail/u/${idx}`;
+}
+
+function gmailUrl(url) {
+  if (!url) return url;
+  return url.replace(/https:\/\/mail\.google\.com\/mail\/u\/\d+/, gmailBase());
+}
+
 let activeFilter = 'all';
 let activeRevFilter = 'all';
 let activeOutreachFilter = 'all';
@@ -32,13 +45,15 @@ let calMonth = 2; // March (0-indexed)
 // Load data
 async function loadData() {
   try {
-    const [dashRes, contactsRes, calRes, revRes, outRes, growthRes] = await Promise.all([
+    const [dashRes, contactsRes, calRes, revRes, outRes, growthRes, finRes, earnRes] = await Promise.all([
       fetch('data/dashboard.json'),
       fetch('data/contacts.json'),
       fetch('data/calendar.json'),
       fetch('data/revenue.json'),
       fetch('data/outreach.json'),
-      fetch('data/growth.json')
+      fetch('data/growth.json'),
+      fetch('data/finance.json'),
+      fetch('data/earnings.json')
     ]);
     dashboardData = await dashRes.json();
     contactsData = await contactsRes.json();
@@ -46,6 +61,22 @@ async function loadData() {
     revenueData = await revRes.json();
     outreachData = await outRes.json();
     growthData = await growthRes.json();
+    financeData = await finRes.json();
+    earningsData = await earnRes.json();
+    // Fix all stored Gmail URLs to use the configured account
+    (dashboardData.cards || []).forEach(c => {
+      c.link = gmailUrl(c.link);
+      c.draftLink = gmailUrl(c.draftLink);
+    });
+    // Merge server-persisted state into localStorage so all devices stay in sync
+    if (dashboardData.sentCards && Object.keys(dashboardData.sentCards).length) {
+      const local = JSON.parse(localStorage.getItem('sentCards') || '{}');
+      localStorage.setItem('sentCards', JSON.stringify({ ...dashboardData.sentCards, ...local }));
+    }
+    if (dashboardData.dismissedCards && Object.keys(dashboardData.dismissedCards).length) {
+      const local = JSON.parse(localStorage.getItem('dismissedCards') || '{}');
+      localStorage.setItem('dismissedCards', JSON.stringify({ ...dashboardData.dismissedCards, ...local }));
+    }
     render();
   } catch (e) {
     console.error('Failed to load data:', e);
@@ -94,14 +125,16 @@ const INBOX_STATUS_COLORS = {
   follow_up: { dot: '#38bdf8', label: 'Follow Up' },
   done: { dot: '#10b981', label: 'Done' },
   confirmed: { dot: '#22c55e', label: 'Confirmed' },
-  sent: { dot: '#8b5cf6', label: 'Sent' }
+  sent: { dot: '#8b5cf6', label: 'Sent' },
+  dismissed: { dot: '#d6d3d1', label: 'Not Interested' }
 };
 
 const INBOX_GROUPS = [
   { id: 'action', label: '\uD83D\uDD25 Needs Action', columns: ['todo', 'in_progress'] },
   { id: 'waiting', label: '\u23F3 Waiting for Reply', columns: ['follow_up'] },
   { id: 'confirmed', label: '\u2705 Confirmed', columns: ['confirmed', 'done'] },
-  { id: 'sent', label: '\uD83D\uDCE4 Sent', columns: ['__sent__'] }
+  { id: 'sent', label: '\uD83D\uDCE4 Sent', columns: ['__sent__'] },
+  { id: 'dismissed', label: '\uD83D\uDEAB Not Interested', columns: ['__dismissed__'] }
 ];
 
 let expandedInboxCard = null;
@@ -113,6 +146,7 @@ function renderInboxView() {
 
   const search = (document.getElementById('inbox-search')?.value || '').toLowerCase();
   const sentIds = getSentCardIds();
+  const dismissedIds = getDismissedCardIds();
   const today = new Date();
   const todayStr = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
@@ -120,17 +154,21 @@ function renderInboxView() {
 
   INBOX_GROUPS.forEach(group => {
     let cards;
-    if (group.id === 'sent') {
+    if (group.id === 'dismissed') {
       cards = dashboardData.cards.filter(c =>
-        sentIds.includes(c.id) && c.column !== 'confirmed' && (activeFilter === 'all' || c.business === activeFilter)
+        dismissedIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
+      );
+    } else if (group.id === 'sent') {
+      cards = dashboardData.cards.filter(c =>
+        sentIds.includes(c.id) && !dismissedIds.includes(c.id) && c.column !== 'confirmed' && (activeFilter === 'all' || c.business === activeFilter)
       );
     } else if (group.id === 'confirmed') {
       cards = dashboardData.cards.filter(c =>
-        group.columns.includes(c.column) && (activeFilter === 'all' || c.business === activeFilter)
+        group.columns.includes(c.column) && !dismissedIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
       );
     } else {
       cards = dashboardData.cards.filter(c =>
-        group.columns.includes(c.column) && !sentIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
+        group.columns.includes(c.column) && !sentIds.includes(c.id) && !dismissedIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
       );
     }
 
@@ -151,11 +189,12 @@ function renderInboxView() {
     html += `<div class="inbox-group-header">${group.label} <span class="text-stone-400 font-normal ml-1">(${cards.length})</span></div>`;
 
     cards.forEach(card => {
-      const effectiveCol = group.id === 'sent' ? 'sent' : card.column;
+      const effectiveCol = group.id === 'sent' ? 'sent' : group.id === 'dismissed' ? 'dismissed' : card.column;
       const statusColor = INBOX_STATUS_COLORS[effectiveCol] || INBOX_STATUS_COLORS.todo;
       const biz = BIZ_COLORS[card.business] || BIZ_COLORS.brand;
       const isExpanded = expandedInboxCard === card.id;
       const isSent = getSentStatus(card.id);
+      const isDismissed = group.id === 'dismissed';
 
       // Check if updated today
       const isNew = card.updatedAt && card.updatedAt >= todayStr;
@@ -179,7 +218,9 @@ function renderInboxView() {
 
       // Action button
       let actionBtn = '';
-      if (isSent && card.column !== 'confirmed') {
+      if (isDismissed) {
+        actionBtn = `<button class="text-xs text-stone-400 hover:text-stone-600 underline" onclick="event.stopPropagation(); undismissCard('${card.id}')">undo</button>`;
+      } else if (isSent && card.column !== 'confirmed') {
         actionBtn = `<span class="text-xs text-stone-400 bg-stone-50 px-2 py-1 rounded-lg">Sent</span>`;
       } else if (card.draftLink) {
         actionBtn = `<a href="${card.draftLink}" target="_blank" rel="noopener" class="text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-2.5 py-1 rounded-lg transition-colors" onclick="event.stopPropagation()">${card.draftLabel || 'Open draft'}</a>`;
@@ -187,7 +228,7 @@ function renderInboxView() {
         actionBtn = `<a href="${card.link}" target="_blank" rel="noopener" class="text-xs font-medium text-sky-600 bg-sky-50 hover:bg-sky-100 px-2.5 py-1 rounded-lg transition-colors" onclick="event.stopPropagation()">${card.linkLabel || 'Open'}</a>`;
       } else {
         const composeUrl = card.contactEmail
-          ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
+          ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
           : null;
         if (composeUrl) {
           actionBtn = `<a href="${composeUrl}" target="_blank" rel="noopener" class="text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 px-2.5 py-1 rounded-lg transition-colors" onclick="event.stopPropagation()">Compose</a>`;
@@ -198,9 +239,9 @@ function renderInboxView() {
       const valueBadge = card.value ? `<span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">${card.value}</span>` : '';
 
       html += `
-        <div class="inbox-row ${isExpanded ? 'expanded' : ''}" onclick="toggleInboxExpand('${card.id}')">
-          ${isNew ? '<div class="inbox-new-dot"></div>' : '<div style="width:8px;flex-shrink:0;"></div>'}
-          <div class="inbox-status-dot" style="background:${statusColor.dot};" title="${statusColor.label}"></div>
+        <div class="inbox-row ${isExpanded ? 'expanded' : ''} ${isDismissed ? 'opacity-40' : ''}" onclick="toggleInboxExpand('${card.id}')">
+          ${isNew && !isDismissed ? '<div class="inbox-new-dot"></div>' : '<div style="width:8px;flex-shrink:0;"></div>'}
+          <div class="inbox-status-dot" style="background:${isDismissed ? '#d6d3d1' : statusColor.dot};" title="${isDismissed ? 'Not Interested' : statusColor.label}"></div>
           <span class="biz-dot ${biz.dot} flex-shrink-0"></span>
           <div class="flex-1 min-w-0 flex items-center gap-3">
             <span class="font-semibold text-stone-700 text-sm truncate" style="min-width:80px;max-width:180px;">${card.title}</span>
@@ -219,15 +260,21 @@ function renderInboxView() {
         const contactHTML = card.contact ? `<p class="text-xs text-stone-500 mb-1"><strong>Contact:</strong> ${card.contact}${card.contactEmail ? ' (' + card.contactEmail + ')' : ''}</p>` : '';
 
         let allButtonsHTML = '';
-        if (!isSent || card.column === 'confirmed') {
+        const isDismissed = getDismissedStatus(card.id);
+        if (isDismissed) {
+          allButtonsHTML = `
+            <span class="text-xs font-medium text-stone-400 bg-stone-100 px-3 py-1.5 rounded-lg">Not interested</span>
+            <button class="text-xs text-stone-400 hover:text-stone-600 underline" onclick="event.stopPropagation(); undismissCard('${card.id}');">undo</button>`;
+        } else if (!isSent || card.column === 'confirmed') {
           const gmailBtn = card.link ? `<a href="${card.link}" target="_blank" rel="noopener" class="text-xs font-medium text-sky-600 bg-sky-50 hover:bg-sky-100 px-3 py-1.5 rounded-lg transition-colors" onclick="event.stopPropagation()">${card.linkLabel || 'Open in Gmail'}</a>` : '';
           const draftBtn = card.draftLink ? `<a href="${card.draftLink}" target="_blank" rel="noopener" class="text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg transition-colors" onclick="event.stopPropagation()">${card.draftLabel || 'Send follow-up'}</a>` : '';
           const composeUrl = card.contactEmail
-            ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
+            ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
             : null;
           const composeBtn = composeUrl && !card.link && !card.draftLink ? `<a href="${composeUrl}" target="_blank" rel="noopener" class="text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg transition-colors" onclick="event.stopPropagation()">Compose</a>` : '';
           const sentBtn = `<button class="text-xs font-medium text-violet-600 bg-violet-50 hover:bg-violet-100 px-3 py-1.5 rounded-lg transition-colors" onclick="event.stopPropagation(); markAsSent('${card.id}'); renderInboxView();">Mark as Sent</button>`;
-          allButtonsHTML = [gmailBtn, draftBtn, composeBtn, sentBtn].filter(Boolean).join('');
+          const notInterestedBtn = `<button class="text-xs font-medium text-stone-400 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition-colors" onclick="event.stopPropagation(); dismissCard('${card.id}');">Not Interested</button>`;
+          allButtonsHTML = [gmailBtn, draftBtn, composeBtn, sentBtn, notInterestedBtn].filter(Boolean).join('');
         } else {
           allButtonsHTML = `
             <span class="text-xs font-medium text-violet-600 bg-violet-50 px-3 py-1.5 rounded-lg">Sent ${getSentDate(card.id)}</span>
@@ -342,8 +389,9 @@ function renderCards() {
       );
     } else {
       const sentIds = getSentCardIds();
+      const dismissedIds = getDismissedCardIds();
       cards = dashboardData.cards.filter(c =>
-        c.column === col && !sentIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
+        c.column === col && !sentIds.includes(c.id) && !dismissedIds.includes(c.id) && (activeFilter === 'all' || c.business === activeFilter)
       );
     }
     // Sort: newest cards first by updatedAt date
@@ -391,9 +439,9 @@ function createCardHTML(card) {
   const isSent = getSentStatus(card.id);
 
   const composeUrl = card.contactEmail
-    ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
+    ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(card.contactEmail)}&su=${encodeURIComponent(card.composeSubject || 'Re: ' + card.title)}`
     : card.contact
-      ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&su=${encodeURIComponent('Re: ' + card.title)}&body=${encodeURIComponent('Hi ' + card.contact.split(' ')[0] + ',\n\n')}`
+      ? `${gmailBase()}/?view=cm&fs=1&su=${encodeURIComponent('Re: ' + card.title)}&body=${encodeURIComponent('Hi ' + card.contact.split(' ')[0] + ',\n\n')}`
       : null;
 
   // Draft follow-up link (pre-written draft ready to send)
@@ -448,7 +496,13 @@ function createCardHTML(card) {
         ${card.linkLabel || 'Open in Gmail'}
       </a>` : '';
 
-    const buttons = [gmailBtn, draftBtn, !card.link && !card.draftLink ? composeBtn : '', sentBtn].filter(b => b.trim()).join('\n');
+    const notInterestedBtn = `
+      <button class="flex items-center gap-1 text-xs font-medium text-stone-400 hover:text-stone-600 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-lg transition-colors"
+              onclick="event.stopPropagation(); dismissCard('${card.id}')">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        Not Interested
+      </button>`;
+    const buttons = [gmailBtn, draftBtn, !card.link && !card.draftLink ? composeBtn : '', sentBtn, notInterestedBtn].filter(b => b.trim()).join('\n');
     linkHTML = buttons ? `<div class="flex items-center gap-2 mt-3 flex-wrap">${buttons}</div>` : '';
   }
 
@@ -523,6 +577,15 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// Persist state back to the server so it survives across devices and deploys
+function callStateAPI(action, cardId) {
+  fetch('/api/update-state', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, cardId })
+  }).catch(() => {}); // silent fail on Vercel static hosting
+}
+
 // Sent tracking (persists in browser)
 function getSentStatus(cardId) {
   try {
@@ -554,6 +617,7 @@ function markAsSent(cardId) {
     sent[cardId] = new Date().toISOString();
     localStorage.setItem('sentCards', JSON.stringify(sent));
   } catch {}
+  callStateAPI('markSent', cardId);
   renderCards();
 }
 
@@ -563,7 +627,44 @@ function unmarkSent(cardId) {
     delete sent[cardId];
     localStorage.setItem('sentCards', JSON.stringify(sent));
   } catch {}
+  callStateAPI('unmarkSent', cardId);
   renderCards();
+}
+
+// Not Interested tracking (persists in browser)
+function getDismissedStatus(cardId) {
+  try {
+    const d = JSON.parse(localStorage.getItem('dismissedCards') || '{}');
+    return d[cardId] || false;
+  } catch { return false; }
+}
+
+function getDismissedCardIds() {
+  try {
+    return Object.keys(JSON.parse(localStorage.getItem('dismissedCards') || '{}'));
+  } catch { return []; }
+}
+
+function dismissCard(cardId) {
+  try {
+    const d = JSON.parse(localStorage.getItem('dismissedCards') || '{}');
+    d[cardId] = new Date().toISOString();
+    localStorage.setItem('dismissedCards', JSON.stringify(d));
+  } catch {}
+  callStateAPI('dismiss', cardId);
+  renderCards();
+  renderInboxView();
+}
+
+function undismissCard(cardId) {
+  try {
+    const d = JSON.parse(localStorage.getItem('dismissedCards') || '{}');
+    delete d[cardId];
+    localStorage.setItem('dismissedCards', JSON.stringify(d));
+  } catch {}
+  callStateAPI('undismiss', cardId);
+  renderCards();
+  renderInboxView();
 }
 
 // Helpers
@@ -586,7 +687,7 @@ let activeTab = 'deals';
 
 function switchTab(tab) {
   activeTab = tab;
-  const allTabs = ['deals', 'growth', 'outreach', 'revenue', 'calendar', 'rates'];
+  const allTabs = ['deals', 'growth', 'outreach', 'revenue', 'calendar', 'rates', 'finance', 'earnings'];
   allTabs.forEach(t => {
     const el = document.getElementById('tab-' + t);
     if (el) el.style.display = t === tab ? '' : 'none';
@@ -608,6 +709,131 @@ function switchTab(tab) {
   if (tab === 'revenue') renderRevenue();
   if (tab === 'outreach') renderMergedOutreach();
   if (tab === 'growth') renderGrowth();
+  if (tab === 'finance') renderFinance();
+  if (tab === 'earnings') renderEarnings();
+}
+
+// ===== EARNINGS TAB =====
+function renderEarnings() {
+  if (!earningsData) return;
+  const entries = earningsData.entries || [];
+
+  // Group by month
+  const byMonth = {};
+  entries.forEach(e => {
+    if (!byMonth[e.month]) byMonth[e.month] = [];
+    byMonth[e.month].push(e);
+  });
+
+  const months = Object.keys(byMonth).sort((a, b) => b.localeCompare(a));
+
+  // Header: current month totals
+  const currentMonthKey = months[0] || '';
+  const currentEntries = byMonth[currentMonthKey] || [];
+  const currentTotal = currentEntries.reduce((s, e) => s + e.amount, 0);
+  const influencerTotal = currentEntries.filter(e => e.role === 'influencer').reduce((s, e) => s + e.amount, 0);
+  const modelTotal = currentEntries.filter(e => e.role === 'model').reduce((s, e) => s + e.amount, 0);
+  const monthLabel = currentMonthKey ? new Date(currentMonthKey + '-02T12:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
+
+  const headerEl = document.getElementById('earnings-header');
+  if (headerEl) {
+    headerEl.innerHTML = `
+      <div class="flex flex-wrap items-start justify-between gap-4 mb-2">
+        <div>
+          <h2 class="text-xl font-bold text-stone-800">${monthLabel} Earnings</h2>
+          <p class="text-sm text-stone-400 mt-0.5">Track what you've earned as a model and influencer each month</p>
+        </div>
+        <div class="text-right">
+          <p class="text-3xl font-bold text-emerald-600">$${currentTotal.toLocaleString()}</p>
+          <p class="text-xs text-stone-400 mt-0.5">earned this month</p>
+        </div>
+      </div>
+      <div class="flex gap-4 mt-2">
+        <div class="bg-rose-50 border border-rose-100 rounded-xl px-5 py-3 flex items-center gap-3">
+          <span class="text-lg">📸</span>
+          <div>
+            <p class="text-xs text-rose-500 font-medium uppercase tracking-wide">Influencer</p>
+            <p class="text-xl font-bold text-rose-600">$${influencerTotal.toLocaleString()}</p>
+          </div>
+        </div>
+        <div class="bg-violet-50 border border-violet-100 rounded-xl px-5 py-3 flex items-center gap-3">
+          <span class="text-lg">👗</span>
+          <div>
+            <p class="text-xs text-violet-500 font-medium uppercase tracking-wide">Model</p>
+            <p class="text-xl font-bold text-violet-600">$${modelTotal.toLocaleString()}</p>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // Monthly breakdowns
+  const monthsEl = document.getElementById('earnings-months');
+  if (!monthsEl) return;
+  let html = '';
+
+  months.forEach(monthKey => {
+    const monthEntries = byMonth[monthKey].sort((a, b) => (b.amount - a.amount));
+    const total = monthEntries.reduce((s, e) => s + e.amount, 0);
+    const label = new Date(monthKey + '-02T12:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const infEntries = monthEntries.filter(e => e.role === 'influencer');
+    const modEntries = monthEntries.filter(e => e.role === 'model');
+
+    html += `<div class="bg-white border border-stone-100 rounded-2xl p-5 mb-4 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="font-semibold text-stone-700 text-base">${label}</h3>
+        <span class="text-base font-bold text-emerald-600">$${total.toLocaleString()} total</span>
+      </div>`;
+
+    if (infEntries.length > 0) {
+      html += `<div class="mb-3">
+        <p class="text-xs font-semibold text-rose-500 uppercase tracking-wide mb-2 flex items-center gap-1"><span>📸</span> Influencer</p>
+        <div class="space-y-2">`;
+      infEntries.forEach(e => {
+        html += `<div class="flex items-center justify-between py-2 px-3 bg-rose-50 rounded-xl">
+          <div>
+            <p class="text-sm font-semibold text-stone-700">${e.brand}</p>
+            <p class="text-xs text-stone-400">${e.type}${e.notes ? ' · ' + e.notes : ''}</p>
+          </div>
+          <span class="text-sm font-bold text-rose-600 ml-4 whitespace-nowrap">$${e.amount.toLocaleString()}</span>
+        </div>`;
+      });
+      const infTotal = infEntries.reduce((s, e) => s + e.amount, 0);
+      html += `</div>
+        <p class="text-right text-xs text-rose-400 font-medium mt-1">Subtotal: $${infTotal.toLocaleString()}</p>
+      </div>`;
+    }
+
+    if (modEntries.length > 0) {
+      html += `<div class="mb-3">
+        <p class="text-xs font-semibold text-violet-500 uppercase tracking-wide mb-2 flex items-center gap-1"><span>👗</span> Model</p>
+        <div class="space-y-2">`;
+      modEntries.forEach(e => {
+        html += `<div class="flex items-center justify-between py-2 px-3 bg-violet-50 rounded-xl">
+          <div>
+            <p class="text-sm font-semibold text-stone-700">${e.brand}</p>
+            <p class="text-xs text-stone-400">${e.type}${e.notes ? ' · ' + e.notes : ''}</p>
+          </div>
+          <span class="text-sm font-bold text-violet-600 ml-4 whitespace-nowrap">$${e.amount.toLocaleString()}</span>
+        </div>`;
+      });
+      const modTotal = modEntries.reduce((s, e) => s + e.amount, 0);
+      html += `</div>
+        <p class="text-right text-xs text-violet-400 font-medium mt-1">Subtotal: $${modTotal.toLocaleString()}</p>
+      </div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  if (months.length === 0) {
+    html = `<div class="text-center py-16 text-stone-400">
+      <p class="text-4xl mb-3">💵</p>
+      <p class="font-medium">No earnings logged yet</p>
+      <p class="text-sm mt-1">Tell your assistant what you've earned and it'll show up here</p>
+    </div>`;
+  }
+
+  monthsEl.innerHTML = html;
 }
 
 // ===== REVENUE TAB =====
@@ -636,6 +862,20 @@ function filterRevenue(filter) {
 function getRemovedDeals() {
   try { return JSON.parse(localStorage.getItem('removedRevenueDeals') || '[]'); }
   catch { return []; }
+}
+
+function getStatusOverrides() {
+  try { return JSON.parse(localStorage.getItem('revenueStatusOverrides') || '{}'); }
+  catch { return {}; }
+}
+
+function setDealStatus(dealId, newStatus) {
+  try {
+    const overrides = getStatusOverrides();
+    overrides[dealId] = newStatus;
+    localStorage.setItem('revenueStatusOverrides', JSON.stringify(overrides));
+  } catch {}
+  renderRevenue();
 }
 
 function removeRevenueDeal(dealId) {
@@ -670,9 +910,13 @@ function renderRevenue() {
   if (!revenueData) return;
 
   const removedIds = getRemovedDeals();
-  const visibleDeals = revenueData.deals.filter(d => !removedIds.includes(d.id));
+  const overrides = getStatusOverrides();
+  const visibleDeals = revenueData.deals.filter(d => !removedIds.includes(d.id)).map(d => ({
+    ...d,
+    status: overrides[d.id] || d.status
+  }));
 
-  const confirmed = visibleDeals.filter(d => d.status === 'confirmed').reduce((s, d) => s + d.value, 0);
+  const confirmed = visibleDeals.filter(d => d.status === 'confirmed' || d.status === 'paid').reduce((s, d) => s + d.value, 0);
   const pending = visibleDeals.filter(d => d.status === 'pending').reduce((s, d) => s + d.value, 0);
   const gifting = visibleDeals.filter(d => d.type === 'Gifting').reduce((s, d) => s + d.value, 0);
   const pipeline = visibleDeals.reduce((s, d) => s + d.value, 0);
@@ -688,17 +932,30 @@ function renderRevenue() {
   document.getElementById('rev-percent').textContent = pct + '%';
   document.getElementById('rev-bar').style.width = pct + '%';
 
-  const filtered = activeRevFilter === 'all' ? visibleDeals : visibleDeals.filter(d => d.status === activeRevFilter);
+  const statusFilterDeals = activeRevFilter === 'all' ? visibleDeals : visibleDeals.filter(d => d.status === activeRevFilter);
   const tbody = document.getElementById('rev-table');
-  tbody.innerHTML = filtered.map(d => {
+  tbody.innerHTML = statusFilterDeals.map(d => {
     const badge = STATUS_BADGES[d.status] || STATUS_BADGES.outreach;
+    const isConfirmed = d.status === 'confirmed' || d.status === 'paid';
+    const statusOptions = Object.entries(STATUS_BADGES).map(([key, val]) =>
+      `<option value="${key}"${d.status === key ? ' selected' : ''}>${val.label}</option>`
+    ).join('');
     return `<tr class="border-b border-stone-50 hover:bg-stone-50 transition-colors">
       <td class="px-5 py-3 text-sm font-medium text-stone-700">${d.brand}</td>
       <td class="px-5 py-3 text-xs text-stone-400">${d.type}${d.recurring ? ' <span class="text-emerald-400">recurring</span>' : ''}</td>
       <td class="px-5 py-3 text-sm font-semibold text-stone-700">$${d.value.toLocaleString()}${d.recurring ? '/mo' : ''}</td>
-      <td class="px-5 py-3"><span class="text-xs px-2 py-1 rounded-full ${badge.bg} ${badge.text} font-medium">${badge.label}</span></td>
+      <td class="px-5 py-3">
+        <select onchange="setDealStatus('${d.id}', this.value)" title="Change status" style="background:transparent;border:none;outline:none;cursor:pointer;font-size:0.75rem;font-weight:500;padding:2px 6px;border-radius:9999px;" class="${badge.bg} ${badge.text}">
+          ${statusOptions}
+        </select>
+      </td>
       <td class="px-5 py-3 text-xs text-stone-400 max-w-xs truncate">${d.notes}</td>
-      <td class="px-5 py-3"><button class="text-stone-300 hover:text-rose-400 transition-colors text-lg leading-none" onclick="removeRevenueDeal('${d.id}')" title="Remove deal">&times;</button></td>
+      <td class="px-5 py-3">
+        <div style="display:flex;align-items:center;gap:8px;">
+          ${!isConfirmed ? `<button onclick="setDealStatus('${d.id}', 'confirmed')" title="Mark as confirmed" style="font-size:0.7rem;padding:2px 8px;border-radius:9999px;background:#ecfdf5;color:#059669;font-weight:600;border:1px solid #a7f3d0;cursor:pointer;white-space:nowrap;" onmouseover="this.style.background='#d1fae5'" onmouseout="this.style.background='#ecfdf5'">✓ Confirm</button>` : `<span style="font-size:0.7rem;padding:2px 8px;border-radius:9999px;background:#ecfdf5;color:#059669;font-weight:600;border:1px solid #a7f3d0;">✓ Confirmed</span>`}
+          <button class="text-stone-300 hover:text-rose-400 transition-colors text-lg leading-none" onclick="removeRevenueDeal('${d.id}')" title="Remove deal">&times;</button>
+        </div>
+      </td>
     </tr>`;
   }).join('');
 
@@ -707,6 +964,275 @@ function renderRevenue() {
   if (removedSection) {
     removedSection.style.display = removedIds.length > 0 ? '' : 'none';
   }
+}
+
+// ===== OUTREACH SUB-TABS =====
+
+const COMPOSE_TEMPLATES = {
+  'brand-deal': {
+    to: '',
+    subject: 'Collaboration with Catalina Freer — @catafreer',
+    body: `Hi [Name],
+
+I hope you're doing well! I'm Catalina Freer — a model and content creator based in NYC with 1M+ combined followers across Instagram (302K @catafreer) and TikTok (700K @catafreer).
+
+I've had the pleasure of creating content for Chanel, Skims, Revolve, Valentino, and Four Seasons, and I would love to explore a collaboration with [Brand].
+
+My rates for sponsored content:
+• Single Image Post: $1,000
+• Carousel: $1,500
+• Reel (cross-posted to both IG + TikTok): $1,800
+• Full Campaign (Image + Reel + Carousel across both platforms): $4,000
+
+Every reel is cross-posted to both Instagram and TikTok, giving your brand exposure to 1M+ combined followers in one deal. My audience spans the US, Latin America, and Europe — a reach most creators can't offer.
+
+I'd love to send over my media kit and discuss how we can work together. What does your content calendar look like?
+
+Best,
+Catalina Freer
+@catafreer | catalinafreer.com | +1 323-681-8164`
+  },
+  'gifting': {
+    to: '',
+    subject: 'Ambassador Opportunity — Catalina Freer (@catafreer)',
+    body: `Hi [Name],
+
+I'm Catalina Freer, a NYC-based model and content creator with 1M+ followers across Instagram (302K) and TikTok (700K @catafreer). I've worked with brands like Chanel, Skims, Revolve, Alo Yoga, and Four Seasons, and I'd love to discuss an ambassador partnership with [Brand].
+
+My multicultural audience spans the US, Latin America, and Europe — making me a strong fit for brands looking to connect with diverse, fashion-forward consumers.
+
+I'd love to share my media kit and explore what an ambassador relationship could look like — gifting, long-term partnership, or a full paid collaboration. What are you currently working with?
+
+Best,
+Catalina Freer
+@catafreer | catalinafreer.com | +1 323-681-8164`
+  },
+  'reengage': {
+    to: '',
+    subject: 'Following Up — Catalina Freer x [Brand]',
+    body: `Hi [Name],
+
+I wanted to circle back on our previous conversation — I'm still very excited about the opportunity to collaborate with [Brand]!
+
+I've updated my media kit and rates for 2026, and would love to share them with you. I'm also cross-posting all reels to both Instagram (302K) and TikTok (700K), so every partnership now reaches 1M+ combined followers.
+
+Would love to reconnect whenever timing works on your end. Happy to jump on a quick call or send over details.
+
+Best,
+Catalina Freer
+@catafreer | catalinafreer.com | +1 323-681-8164`
+  },
+  'ai-tech': {
+    to: '',
+    subject: 'Partnership Inquiry — Catalina Freer x [Brand]',
+    body: `Hi [Name],
+
+I'm Catalina Freer — a model, content creator, and founder of Nuvana, an AI agency launching April 2026. I have 1M+ followers across Instagram (302K @catafreer) and TikTok (700K @catafreer), with a multicultural audience spanning the US, Latin America, and Europe.
+
+I'm actively seeking AI and tech partnerships that align with my personal brand and Nuvana's mission. [Brand] caught my eye, and I'd love to explore what a collaboration could look like — whether that's sponsored content, an ambassador role, or a deeper partnership.
+
+Would love to connect and learn more about your partnership structure and terms.
+
+Best,
+Catalina Freer
+@catafreer | catalinafreer.com | +1 323-681-8164
+Founder, Nuvana`
+  }
+};
+
+function switchOutreachSubTab(subtab) {
+  // Update tab button styles
+  document.querySelectorAll('.outreach-subtab').forEach(btn => {
+    if (btn.dataset.subtab === subtab) {
+      btn.className = 'outreach-subtab active flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-violet-100 text-violet-700 transition-colors';
+    } else {
+      btn.className = 'outreach-subtab flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium text-stone-400 hover:bg-stone-100 transition-colors';
+      // Re-add the inner span with icon — preserve inner HTML for subtabs
+    }
+  });
+
+  // Show/hide panels
+  ['all', 'drafts', 'compose', 'followup'].forEach(p => {
+    const el = document.getElementById('outreach-panel-' + p);
+    if (el) el.style.display = p === subtab ? '' : 'none';
+  });
+
+  // Render the appropriate panel
+  if (subtab === 'drafts') renderDraftQueue();
+  if (subtab === 'followup') renderFollowUpQueue();
+}
+
+function openComposeTemplate(type) {
+  const tpl = COMPOSE_TEMPLATES[type];
+  if (!tpl) return;
+  const url = `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(tpl.to)}&su=${encodeURIComponent(tpl.subject)}&body=${encodeURIComponent(tpl.body)}`;
+  window.open(url, '_blank', 'noopener');
+}
+
+function renderDraftQueue() {
+  const container = document.getElementById('draft-queue-cards');
+  if (!container) return;
+
+  // Collect all contacts/outreach items that have a draft link
+  let drafts = [];
+
+  // From contacts.json — items with a draft link (#drafts or compose= in the URL)
+  if (contactsData) {
+    contactsData.forEach(c => {
+      if (c.link && (c.link.includes('#drafts') || c.link.includes('compose='))) {
+        drafts.push({
+          brand: c.brand,
+          contact: c.contact,
+          email: c.email,
+          notes: c.notes,
+          link: c.link,
+          status: c.status,
+          lastContact: c.lastContact,
+          source: 'contact'
+        });
+      }
+    });
+  }
+
+  // From outreach.json activeOutreach — items with a draft link
+  if (outreachData && outreachData.activeOutreach) {
+    outreachData.activeOutreach.forEach(a => {
+      if (a.link && (a.link.includes('#drafts') || a.link.includes('compose='))) {
+        const exists = drafts.find(d => d.email && d.email === a.email);
+        if (!exists) {
+          drafts.push({
+            brand: a.brand,
+            contact: a.contact,
+            email: a.email,
+            notes: a.notes,
+            link: a.link,
+            status: a.status,
+            lastContact: a.lastAction,
+            source: 'outreach'
+          });
+        }
+      }
+    });
+  }
+
+  // Also pull draft cards from dashboard.json
+  if (dashboardData && dashboardData.cards) {
+    dashboardData.cards.forEach(c => {
+      if (c.draftLink) {
+        const alreadyIn = drafts.find(d => d.brand && c.title.toLowerCase().includes(d.brand.toLowerCase()));
+        if (!alreadyIn) {
+          drafts.push({
+            brand: c.title,
+            contact: c.contact || '',
+            email: c.contactEmail || '',
+            notes: c.description || '',
+            link: c.draftLink,
+            status: 'Draft Ready',
+            lastContact: c.updatedAt,
+            source: 'dashboard'
+          });
+        }
+      }
+    });
+  }
+
+  if (drafts.length === 0) {
+    container.innerHTML = `<div class="col-span-3 text-center py-16">
+      <p class="text-2xl mb-2">📭</p>
+      <p class="text-stone-400 text-sm">No drafts waiting right now.</p>
+      <p class="text-stone-300 text-xs mt-1">When the email assistant creates a draft reply, it'll appear here.</p>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = drafts.map(d => {
+    return `
+      <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col gap-3" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="flex items-start justify-between">
+          <div>
+            <h4 class="font-semibold text-stone-700 text-sm leading-snug">${d.brand}</h4>
+            ${d.contact ? `<p class="text-xs text-stone-400 mt-0.5">${d.contact}</p>` : ''}
+          </div>
+          <span class="flex-shrink-0 text-xs px-2 py-0.5 rounded-full bg-sky-100 text-sky-600 font-medium">Draft Ready</span>
+        </div>
+        ${d.notes ? `<p class="text-xs text-stone-400 leading-relaxed line-clamp-3">${d.notes}</p>` : ''}
+        <div class="flex items-center gap-2 flex-wrap mt-auto">
+          <a href="${d.link}" target="_blank" rel="noopener"
+             class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-xl transition-colors text-center">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+            Open Draft
+          </a>
+          ${d.email ? `<a href="${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(d.email)}&su=${encodeURIComponent('Re: Collaboration with Catalina Freer')}" target="_blank" rel="noopener" class="text-xs font-medium text-stone-500 bg-stone-100 hover:bg-stone-200 px-3 py-2 rounded-xl transition-colors">New Email</a>` : ''}
+        </div>
+        ${d.lastContact ? `<p class="text-xs text-stone-300">Last: ${d.lastContact}</p>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function renderFollowUpQueue() {
+  const container = document.getElementById('followup-queue-cards');
+  if (!container) return;
+
+  // Contacts that haven't replied — No Reply, NEVER REPLIED, Stale, Waiting
+  let needFollowUp = [];
+
+  if (contactsData) {
+    contactsData.forEach(c => {
+      const s = (c.status || '').toUpperCase();
+      if (s.includes('NO REPLY') || s.includes('NEVER REPLIED') || s === 'STALE' || s === 'WAITING') {
+        needFollowUp.push({ ...c, source: 'contact' });
+      }
+    });
+  }
+
+  if (outreachData && outreachData.activeOutreach) {
+    outreachData.activeOutreach.forEach(a => {
+      if (a.status === 'waiting') {
+        const exists = needFollowUp.find(n => n.email && n.email === a.email);
+        if (!exists) needFollowUp.push({ brand: a.brand, contact: a.contact, email: a.email, notes: a.notes, link: a.link, status: 'Waiting', lastContact: a.lastAction, source: 'outreach' });
+      }
+    });
+  }
+
+  if (needFollowUp.length === 0) {
+    container.innerHTML = `<div class="col-span-3 text-center py-16">
+      <p class="text-2xl mb-2">✅</p>
+      <p class="text-stone-400 text-sm">You're all caught up on follow-ups!</p>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = needFollowUp.map(c => {
+    const composeUrl = c.email
+      ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${encodeURIComponent('Following Up — Catalina Freer x ' + c.brand)}&body=${encodeURIComponent(COMPOSE_TEMPLATES['reengage'].body.replace('[Brand]', c.brand).replace('[Name]', c.contact || 'there'))}`
+      : '#';
+
+    const statusColor = (c.status || '').toUpperCase().includes('NEVER') ? 'bg-rose-100 text-rose-600' :
+      c.status === 'Waiting' || c.status === 'waiting' ? 'bg-amber-100 text-amber-600' :
+      'bg-stone-100 text-stone-500';
+
+    return `
+      <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col gap-3" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+        <div class="flex items-start justify-between">
+          <div>
+            <h4 class="font-semibold text-stone-700 text-sm leading-snug">${c.brand}</h4>
+            ${c.contact ? `<p class="text-xs text-stone-400 mt-0.5">${c.contact}</p>` : ''}
+            ${c.email ? `<p class="text-xs text-stone-300">${c.email}</p>` : ''}
+          </div>
+          <span class="flex-shrink-0 text-xs px-2 py-0.5 rounded-full ${statusColor} font-medium">${c.status || 'No Reply'}</span>
+        </div>
+        ${c.notes ? `<p class="text-xs text-stone-400 leading-relaxed line-clamp-2">${c.notes}</p>` : ''}
+        <div class="flex items-center gap-2 flex-wrap mt-auto">
+          ${c.email ? `<a href="${composeUrl}" target="_blank" rel="noopener"
+             class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold text-white bg-emerald-500 hover:bg-emerald-600 px-3 py-2 rounded-xl transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+            Send Follow-Up
+          </a>` : '<span class="text-xs text-stone-300">No email on file</span>'}
+          ${c.link ? `<a href="${c.link}" target="_blank" rel="noopener" class="text-xs font-medium text-sky-600 bg-sky-50 hover:bg-sky-100 px-3 py-2 rounded-xl transition-colors">View Thread</a>` : ''}
+        </div>
+        ${c.lastContact ? `<p class="text-xs text-stone-300">Last contact: ${c.lastContact}</p>` : ''}
+      </div>`;
+  }).join('');
 }
 
 // ===== MERGED OUTREACH + CONTACTS TAB =====
@@ -812,7 +1338,7 @@ function renderMergedOutreach() {
     const priorityBadge = PRIORITY_BADGES[u.priority] || PRIORITY_BADGES.maybe;
     const statusStyle = getStatusStyle(u.status);
     const composeUrl = u.email
-      ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${encodeURIComponent(u.email)}&su=${encodeURIComponent('Collaboration with Catalina Freer — @catafreer')}`
+      ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(u.email)}&su=${encodeURIComponent('Collaboration with Catalina Freer — @catafreer')}`
       : '#';
 
     // Check if brand has been contacted (in dashboard.json sent cards or localStorage)
@@ -927,7 +1453,7 @@ function renderDreamBrands() {
   container.innerHTML = outreachData.dreamBrands.map(d => {
     const statusBadge = PRIORITY_BADGES[d.status] || PRIORITY_BADGES.idea;
     const composeUrl = d.email
-      ? `https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${encodeURIComponent(d.email)}&su=${encodeURIComponent('Collaboration Inquiry — Catalina Freer (@catafreer)')}`
+      ? `${gmailBase()}/?view=cm&fs=1&to=${encodeURIComponent(d.email)}&su=${encodeURIComponent('Collaboration Inquiry — Catalina Freer (@catafreer)')}`
       : '#';
     const alreadyContacted = isBrandAlreadyContacted(d.brand, d.email);
 
@@ -1495,6 +2021,213 @@ function renderWatchlist() {
         <p class="text-xs text-emerald-600">${c.steal}</p>
       </div>
     </div>`).join('');
+}
+
+// ===== FINANCE / MARKETS TAB =====
+
+let activeFinTab = 'overview';
+
+function switchFinTab(tab) {
+  activeFinTab = tab;
+  const allFinTabs = ['overview', 'movers', 'news', 'econcal', 'sectors', 'learn'];
+  allFinTabs.forEach(t => {
+    const el = document.getElementById('fin-' + t);
+    if (el) el.style.display = t === tab ? '' : 'none';
+  });
+  document.querySelectorAll('.fin-sub').forEach(btn => {
+    if (btn.dataset.fintab === tab) {
+      btn.classList.add('active');
+      btn.style.background = '#d1fae5';
+      btn.style.color = '#047857';
+    } else {
+      btn.classList.remove('active');
+      btn.style.background = '';
+      btn.style.color = '';
+    }
+  });
+}
+
+function renderFinance() {
+  if (!financeData) return;
+  renderFinOverview();
+  renderFinMovers();
+  renderFinNews();
+  renderFinEconCal();
+  renderFinSectors();
+  renderFinLearn();
+  const updEl = document.getElementById('fin-last-updated');
+  if (updEl && financeData.last_updated) {
+    const d = new Date(financeData.last_updated);
+    updEl.textContent = 'Updated: ' + d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }) + ' ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  }
+}
+
+function finMarketCard(item) {
+  const up = item.direction === 'up';
+  const arrow = up ? '▲' : '▼';
+  const color = up ? 'emerald' : 'rose';
+  const pct = Math.abs(item.change_pct).toFixed(2);
+  const changeVal = item.change !== undefined ? (up ? '+' : '') + item.change.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : '';
+  return `<div class="bg-white rounded-xl border border-stone-100 p-4 hover:shadow-md transition-shadow">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-xs font-medium text-stone-400">${item.symbol}</p>
+      <span class="text-xs font-bold text-${color}-600 bg-${color}-50 px-2 py-0.5 rounded-full">${arrow} ${pct}%</span>
+    </div>
+    <p class="text-lg font-bold text-stone-800">$${item.value ? item.value.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : '—'}</p>
+    <p class="text-xs text-stone-400 mt-1">${item.name}</p>
+    ${changeVal ? `<p class="text-xs text-${color}-500 mt-1">${changeVal}</p>` : ''}
+  </div>`;
+}
+
+function renderFinOverview() {
+  const snap = financeData.market_snapshot;
+  if (!snap) return;
+  const usEl = document.getElementById('fin-us-markets');
+  const intlEl = document.getElementById('fin-intl-markets');
+  const cryptoEl = document.getElementById('fin-crypto');
+  if (usEl) usEl.innerHTML = snap.us.map(finMarketCard).join('');
+  if (intlEl) intlEl.innerHTML = snap.international.map(finMarketCard).join('');
+  if (cryptoEl) cryptoEl.innerHTML = snap.crypto.map(finMarketCard).join('');
+}
+
+function finMoverRow(item, type) {
+  const color = type === 'gainer' ? 'emerald' : 'rose';
+  const sign = type === 'gainer' ? '+' : '-';
+  return `<div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-stone-100 mb-2">
+    <div class="w-12 h-12 rounded-lg bg-${color}-50 flex items-center justify-center font-bold text-sm text-${color}-700">${item.symbol}</div>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-semibold text-stone-700 truncate">${item.name}</p>
+      <p class="text-xs text-stone-400 truncate">${item.reason}</p>
+    </div>
+    <div class="text-right flex-shrink-0">
+      <p class="text-sm font-bold text-stone-800">$${item.price.toFixed(2)}</p>
+      <p class="text-xs font-semibold text-${color}-600">${sign}${Math.abs(item.change_pct).toFixed(1)}%</p>
+    </div>
+  </div>`;
+}
+
+function renderFinMovers() {
+  const m = financeData.top_movers;
+  if (!m) return;
+  const gEl = document.getElementById('fin-gainers');
+  const lEl = document.getElementById('fin-losers');
+  const vEl = document.getElementById('fin-volume');
+  if (gEl) gEl.innerHTML = m.gainers.map(g => finMoverRow(g, 'gainer')).join('');
+  if (lEl) lEl.innerHTML = m.losers.map(l => finMoverRow(l, 'loser')).join('');
+  if (vEl) vEl.innerHTML = m.unusual_volume.map(v => `<div class="flex items-center gap-3 p-3 bg-white rounded-lg border border-amber-100 mb-2">
+    <div class="w-12 h-12 rounded-lg bg-amber-50 flex items-center justify-center font-bold text-sm text-amber-700">${v.symbol}</div>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-semibold text-stone-700">${v.name}</p>
+      <p class="text-xs text-stone-400">${v.note}</p>
+    </div>
+    <div class="text-right flex-shrink-0">
+      <p class="text-xs font-semibold text-amber-600">Vol: ${v.volume}</p>
+      <p class="text-xs text-stone-400">Avg: ${v.avg_volume}</p>
+    </div>
+  </div>`).join('');
+}
+
+function renderFinNews() {
+  const news = financeData.top_news;
+  if (!news) return;
+  const el = document.getElementById('fin-news-grid');
+  const impactColors = { high: 'rose', medium: 'amber', low: 'stone' };
+  if (el) el.innerHTML = news.map(n => {
+    const ic = impactColors[n.impact] || 'stone';
+    return `<div class="bg-white rounded-xl border border-stone-100 p-5 hover:shadow-md transition-shadow">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xs font-semibold text-${ic}-600 bg-${ic}-50 px-2 py-0.5 rounded-full">${n.impact.toUpperCase()}</span>
+        <span class="text-xs text-stone-400">${n.category}</span>
+      </div>
+      <h3 class="text-sm font-bold text-stone-800 mb-2">${n.headline}</h3>
+      <p class="text-xs text-stone-500 leading-relaxed">${n.summary}</p>
+    </div>`;
+  }).join('');
+}
+
+function renderFinEconCal() {
+  const cal = financeData.economic_calendar;
+  if (!cal) return;
+  const el = document.getElementById('fin-econcal-list');
+  const impColors = { high: 'rose', medium: 'amber', low: 'stone' };
+  if (el) el.innerHTML = cal.map(e => {
+    const ic = impColors[e.importance] || 'stone';
+    return `<div class="flex gap-4 p-4 bg-white rounded-xl border border-stone-100 mb-3 hover:shadow-md transition-shadow">
+      <div class="flex-shrink-0 w-24 text-center">
+        <p class="text-sm font-bold text-stone-700">${e.time}</p>
+        <span class="inline-block mt-1 text-xs font-semibold text-${ic}-600 bg-${ic}-50 px-2 py-0.5 rounded-full">${e.importance.toUpperCase()}</span>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm font-bold text-stone-800">${e.event}</p>
+        <p class="text-xs text-stone-500 mt-1 leading-relaxed">${e.description}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderFinSectors() {
+  const sectors = financeData.sector_watch;
+  if (!sectors) return;
+  const el = document.getElementById('fin-sector-bars');
+  const maxAbs = Math.max(...sectors.map(s => Math.abs(s.change_pct)), 1);
+  if (el) el.innerHTML = sectors.map(s => {
+    const up = s.direction === 'up';
+    const color = up ? 'emerald' : 'rose';
+    const width = Math.max((Math.abs(s.change_pct) / maxAbs) * 100, 8);
+    const sign = up ? '+' : '';
+    return `<div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-stone-100 mb-3 hover:shadow-md transition-shadow">
+      <div class="w-40 flex-shrink-0">
+        <p class="text-sm font-semibold text-stone-700">${s.name}</p>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-1">
+          <div class="flex-1 bg-stone-50 rounded-full h-5 overflow-hidden">
+            <div class="h-full rounded-full bg-${color}-${up ? '400' : '400'}" style="width:${width}%"></div>
+          </div>
+          <span class="text-sm font-bold text-${color}-600 w-16 text-right">${sign}${s.change_pct.toFixed(2)}%</span>
+        </div>
+        <p class="text-xs text-stone-400">${s.note}</p>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderFinLearn() {
+  const lesson = financeData.lesson;
+  const tips = financeData.tips;
+  if (!lesson) return;
+  const el = document.getElementById('fin-lesson');
+  // Convert markdown-style bold to HTML
+  const content = lesson.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+  if (el) el.innerHTML = `<div class="bg-white rounded-xl border border-stone-100 p-6">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-lg bg-violet-100 flex items-center justify-center text-lg">📖</div>
+      <h3 class="text-lg font-bold text-stone-800">${lesson.title}</h3>
+    </div>
+    <div class="text-sm text-stone-600 leading-relaxed mb-4">${content}</div>
+    <div class="bg-violet-50 border border-violet-100 rounded-lg p-4">
+      <p class="text-xs font-semibold text-violet-700 mb-1">KEY TAKEAWAY</p>
+      <p class="text-sm text-violet-600">${lesson.key_takeaway}</p>
+    </div>
+  </div>`;
+
+  const tEl = document.getElementById('fin-tips');
+  if (tEl && tips) tEl.innerHTML = `
+    <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4">
+      <p class="text-xs font-semibold text-emerald-700 mb-2">💡 TRADING TIP</p>
+      <p class="text-sm text-emerald-600">${tips.trading_tip}</p>
+    </div>
+    <div class="bg-rose-50 border border-rose-100 rounded-xl p-4">
+      <p class="text-xs font-semibold text-rose-700 mb-2">⚠️ RISK REMINDER</p>
+      <p class="text-sm text-rose-600">${tips.risk_reminder}</p>
+    </div>
+    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4">
+      <p class="text-xs font-semibold text-sky-700 mb-2">🔥 MOTIVATION</p>
+      <p class="text-sm text-sky-600">${tips.motivation}</p>
+    </div>`;
+
+  const dEl = document.getElementById('fin-disclaimer');
+  if (dEl) dEl.textContent = financeData.disclaimer || '';
 }
 
 // Initialize main tab styling

@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "id": "earn-restaurant-apr",
+      "month": "2026-04",
+      "brand": "Restaurant Client",
+      "role": "influencer",
+      "type": "Campaign",
+      "amount": 1200,
+      "notes": "Restaurant marketing campaign",
+      "status": "paid"
+    },
+    {
+      "id": "earn-zeelool-apr",
+      "month": "2026-04",
+      "brand": "Zeelool Glasses",
+      "role": "influencer",
+      "type": "Reel",
+      "amount": 1800,
+      "notes": "IG Reel + 30-day bio link",
+      "status": "paid"
+    }
+  ]
+}

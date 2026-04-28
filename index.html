@@ -156,6 +156,15 @@
       #tab-rates .grid.grid-cols-2.md\:grid-cols-5 > div:last-child { grid-column: span 2; }
       #tab-rates .lg\:col-span-2 { grid-column: span 1 !important; }
       #tab-rates .grid.grid-cols-1.lg\:grid-cols-3 { grid-template-columns: 1fr !important; }
+
+      /* Finance tab mobile */
+      #tab-finance .grid.grid-cols-3 { grid-template-columns: 1fr !important; }
+      #tab-finance .grid.grid-cols-2 { grid-template-columns: 1fr !important; }
+      .fin-sub { flex-shrink: 0; white-space: nowrap; padding: 8px 12px !important; font-size: 12px !important; }
+      .fin-sub-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .fin-sub-scroll::-webkit-scrollbar { display: none; }
+      #fin-movers-tables { flex-direction: column !important; }
+      #fin-movers-tables > div { width: 100% !important; }
     }
 
     @media (max-width: 480px) {
@@ -238,6 +247,12 @@
           </button>
           <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="rates" onclick="switchTab('rates')">
             📋 Rates
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="finance" onclick="switchTab('finance')">
+            📈 Markets
+          </button>
+          <button class="main-tab px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600 transition-all" data-tab="earnings" onclick="switchTab('earnings')">
+            💵 Earnings
           </button>
         </div>
       </div>
@@ -682,23 +697,153 @@
         </div>
       </div>
 
-      <!-- Search + Filters -->
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <input type="text" id="outreach-search" placeholder="Search brand name..." class="px-4 py-2 rounded-xl border border-stone-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-200 w-64" oninput="renderMergedOutreach()">
-        <button class="outreach-filter active px-4 py-1.5 rounded-full text-sm font-medium bg-violet-100 text-violet-700" data-ofilter="all" onclick="filterOutreach('all')">All</button>
-        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="hot" onclick="filterOutreach('hot')">Hot</button>
-        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="active" onclick="filterOutreach('active')">Active</button>
-        <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="followup" onclick="filterOutreach('followup')">Follow Up</button>
+      <!-- Sub-Tabs -->
+      <div class="flex items-center gap-2 mb-6 border-b border-stone-100 pb-3 overflow-x-auto">
+        <button class="outreach-subtab active flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold bg-violet-100 text-violet-700 transition-colors" data-subtab="all" onclick="switchOutreachSubTab('all')">All Contacts</button>
+        <button class="outreach-subtab flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium text-stone-400 hover:bg-stone-100 transition-colors" data-subtab="drafts" onclick="switchOutreachSubTab('drafts')">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Drafts
+          </span>
+        </button>
+        <button class="outreach-subtab flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium text-stone-400 hover:bg-stone-100 transition-colors" data-subtab="compose" onclick="switchOutreachSubTab('compose')">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+            Compose
+          </span>
+        </button>
+        <button class="outreach-subtab flex-shrink-0 px-4 py-2 rounded-xl text-sm font-medium text-stone-400 hover:bg-stone-100 transition-colors" data-subtab="followup" onclick="switchOutreachSubTab('followup')">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/></svg>
+            Follow Up
+          </span>
+        </button>
       </div>
 
-      <!-- Card Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="outreach-cards"></div>
-
-      <!-- Dream Brands Section -->
-      <div class="mt-8">
-        <h3 class="text-lg font-bold text-stone-800 mb-4">Dream Brands to Pitch</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="dream-brand-cards"></div>
+      <!-- ====== ALL CONTACTS PANEL ====== -->
+      <div id="outreach-panel-all">
+        <!-- Search + Filters -->
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+          <input type="text" id="outreach-search" placeholder="Search brand name..." class="px-4 py-2 rounded-xl border border-stone-200 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-violet-200 w-64" oninput="renderMergedOutreach()">
+          <button class="outreach-filter active px-4 py-1.5 rounded-full text-sm font-medium bg-violet-100 text-violet-700" data-ofilter="all" onclick="filterOutreach('all')">All</button>
+          <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="hot" onclick="filterOutreach('hot')">Hot</button>
+          <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="active" onclick="filterOutreach('active')">Active</button>
+          <button class="outreach-filter px-4 py-1.5 rounded-full text-sm font-medium bg-stone-50 text-stone-400 hover:bg-stone-100" data-ofilter="followup" onclick="filterOutreach('followup')">Follow Up</button>
+        </div>
+        <!-- Card Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="outreach-cards"></div>
+        <!-- Dream Brands Section -->
+        <div class="mt-8">
+          <h3 class="text-lg font-bold text-stone-800 mb-4">Dream Brands to Pitch</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 outreach-card-grid" id="dream-brand-cards"></div>
+        </div>
       </div>
+
+      <!-- ====== DRAFTS PANEL ====== -->
+      <div id="outreach-panel-drafts" style="display:none;">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-base font-bold text-stone-700">Drafts Ready to Send</h3>
+            <p class="text-xs text-stone-400 mt-0.5">These emails have a draft waiting in Gmail — click to review and send.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="draft-queue-cards"></div>
+      </div>
+
+      <!-- ====== COMPOSE PANEL ====== -->
+      <div id="outreach-panel-compose" style="display:none;">
+        <div class="mb-6">
+          <h3 class="text-base font-bold text-stone-700">Pitch Templates</h3>
+          <p class="text-xs text-stone-400 mt-0.5">Pick a template — it opens in Gmail with your info already filled in. Just add the brand name and hit send.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+          <!-- Template 1: Brand Deal Cold Pitch -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-lg">💰</span>
+              <h4 class="font-semibold text-stone-700">Brand Deal Cold Pitch</h4>
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-rose-100 text-rose-600 font-medium flex-shrink-0">Cold Outreach</span>
+            </div>
+            <p class="text-xs text-stone-400 mb-3">For reaching out to a brand you've never worked with. Highlights your 1M+ followers, brand history, and cross-platform reach.</p>
+            <div class="bg-stone-50 rounded-xl p-3 mb-4 flex-1">
+              <p class="text-xs font-semibold text-stone-600 mb-1">Subject: Collaboration with Catalina Freer — @catafreer</p>
+              <p class="text-xs text-stone-400 leading-relaxed">Hi [Name], I'm Catalina Freer — a model and content creator with 1M+ combined followers across Instagram (302K) and TikTok (700K). I've worked with Chanel, Skims, Revolve, Valentino, and Four Seasons, and would love to explore a collab with [Brand]...</p>
+            </div>
+            <button onclick="openComposeTemplate('brand-deal')" class="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-violet-500 hover:bg-violet-600 px-4 py-2.5 rounded-xl transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              Open in Gmail
+            </button>
+          </div>
+
+          <!-- Template 2: Gifting / Ambassador -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-lg">🎁</span>
+              <h4 class="font-semibold text-stone-700">Gifting / Ambassador</h4>
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-pink-100 text-pink-600 font-medium flex-shrink-0">Partnership</span>
+            </div>
+            <p class="text-xs text-stone-400 mb-3">For gifting and ambassador proposals. Warm tone, focuses on long-term brand alignment and your multicultural audience reach.</p>
+            <div class="bg-stone-50 rounded-xl p-3 mb-4 flex-1">
+              <p class="text-xs font-semibold text-stone-600 mb-1">Subject: Ambassador Opportunity — Catalina Freer (@catafreer)</p>
+              <p class="text-xs text-stone-400 leading-relaxed">Hi [Name], I'm a NYC-based model and content creator with 1M+ followers across Instagram and TikTok, and a multicultural audience in the US, Latin America, and Europe. I'd love to discuss an ambassador partnership with [Brand]...</p>
+            </div>
+            <button onclick="openComposeTemplate('gifting')" class="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-pink-500 hover:bg-pink-600 px-4 py-2.5 rounded-xl transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              Open in Gmail
+            </button>
+          </div>
+
+          <!-- Template 3: Re-engage -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-lg">🔄</span>
+              <h4 class="font-semibold text-stone-700">Re-engage</h4>
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-600 font-medium flex-shrink-0">Circle Back</span>
+            </div>
+            <p class="text-xs text-stone-400 mb-3">For brands you've reached out to before but went quiet. Warm, low-pressure — reopens the conversation without being pushy.</p>
+            <div class="bg-stone-50 rounded-xl p-3 mb-4 flex-1">
+              <p class="text-xs font-semibold text-stone-600 mb-1">Subject: Following Up — Catalina Freer x [Brand]</p>
+              <p class="text-xs text-stone-400 leading-relaxed">Hi [Name], I wanted to circle back on our previous conversation — still very excited about the opportunity to collaborate with [Brand]. Happy to share my updated media kit and rates whenever it's convenient...</p>
+            </div>
+            <button onclick="openComposeTemplate('reengage')" class="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-amber-500 hover:bg-amber-600 px-4 py-2.5 rounded-xl transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              Open in Gmail
+            </button>
+          </div>
+
+          <!-- Template 4: AI / Tech (Nuvana) -->
+          <div class="bg-white rounded-2xl border border-stone-200 p-5 flex flex-col" style="box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-lg">🤖</span>
+              <h4 class="font-semibold text-stone-700">AI / Tech Partnership</h4>
+              <span class="ml-auto text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-600 font-medium flex-shrink-0">Nuvana</span>
+            </div>
+            <p class="text-xs text-stone-400 mb-3">For AI and tech brands — positions you as both a creator and founder of Nuvana. Perfect for tech partnerships aligned with your agency launch.</p>
+            <div class="bg-stone-50 rounded-xl p-3 mb-4 flex-1">
+              <p class="text-xs font-semibold text-stone-600 mb-1">Subject: Partnership Inquiry — Catalina Freer x [Brand]</p>
+              <p class="text-xs text-stone-400 leading-relaxed">Hi [Name], I'm Catalina Freer — a model, content creator, and founder of Nuvana, an AI agency launching April 2026. With 1M+ followers across IG and TikTok, I'd love to explore a partnership with [Brand]...</p>
+            </div>
+            <button onclick="openComposeTemplate('ai-tech')" class="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-blue-500 hover:bg-blue-600 px-4 py-2.5 rounded-xl transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+              Open in Gmail
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ====== FOLLOW UP PANEL ====== -->
+      <div id="outreach-panel-followup" style="display:none;">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h3 class="text-base font-bold text-stone-700">Needs a Follow-Up</h3>
+            <p class="text-xs text-stone-400 mt-0.5">Contacts that haven't replied — your follow-up email is pre-written, just click Send Follow-Up.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="followup-queue-cards"></div>
+      </div>
+
     </div>
   </div><!-- end tab-outreach -->
 
@@ -1096,6 +1241,94 @@
       </div>
     </div>
   </div><!-- end tab-rates -->
+
+  <!-- ===== FINANCE / MARKETS TAB ===== -->
+  <div id="tab-finance" style="display:none;">
+    <div class="max-w-[1600px] mx-auto px-6 py-6">
+      <!-- Sub-tab nav -->
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+        <div class="fin-sub-scroll flex items-center gap-1 bg-stone-50 rounded-xl p-1">
+          <button class="fin-sub active px-4 py-2 rounded-lg text-sm font-medium bg-emerald-100 text-emerald-700" data-fintab="overview" onclick="switchFinTab('overview')">Overview</button>
+          <button class="fin-sub px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600" data-fintab="movers" onclick="switchFinTab('movers')">Top Movers</button>
+          <button class="fin-sub px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600" data-fintab="news" onclick="switchFinTab('news')">News</button>
+          <button class="fin-sub px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600" data-fintab="econcal" onclick="switchFinTab('econcal')">Calendar</button>
+          <button class="fin-sub px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600" data-fintab="sectors" onclick="switchFinTab('sectors')">Sectors</button>
+          <button class="fin-sub px-4 py-2 rounded-lg text-sm font-medium text-stone-400 hover:text-stone-600" data-fintab="learn" onclick="switchFinTab('learn')">Learn</button>
+        </div>
+        <p class="text-xs text-stone-400" id="fin-last-updated"></p>
+      </div>
+
+      <!-- Overview sub-tab -->
+      <div id="fin-overview">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">🌍 Global Market Snapshot</h2>
+        <p class="text-sm text-stone-500 mb-4">US Markets</p>
+        <div class="grid grid-cols-3 gap-4 mb-6" id="fin-us-markets"></div>
+        <p class="text-sm text-stone-500 mb-4">International Markets</p>
+        <div class="grid grid-cols-3 gap-4 mb-6" id="fin-intl-markets"></div>
+        <p class="text-sm text-stone-500 mb-4">Crypto</p>
+        <div class="grid grid-cols-2 gap-4 mb-6" id="fin-crypto"></div>
+      </div>
+
+      <!-- Top Movers sub-tab -->
+      <div id="fin-movers" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">🔥 Top Movers</h2>
+        <div class="flex gap-6 mb-6" id="fin-movers-tables">
+          <div class="flex-1">
+            <h3 class="text-sm font-semibold text-emerald-600 mb-3">📈 Top Gainers</h3>
+            <div id="fin-gainers"></div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-semibold text-rose-600 mb-3">📉 Top Losers</h3>
+            <div id="fin-losers"></div>
+          </div>
+        </div>
+        <h3 class="text-sm font-semibold text-amber-600 mb-3">⚡ Unusual Volume</h3>
+        <div id="fin-volume"></div>
+      </div>
+
+      <!-- News sub-tab -->
+      <div id="fin-news" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">🗞️ Top Finance News</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="fin-news-grid"></div>
+      </div>
+
+      <!-- Economic Calendar sub-tab -->
+      <div id="fin-econcal" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">📅 Today's Economic Calendar</h2>
+        <div id="fin-econcal-list"></div>
+      </div>
+
+      <!-- Sectors sub-tab -->
+      <div id="fin-sectors" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">📊 Sector Performance</h2>
+        <div id="fin-sector-bars"></div>
+      </div>
+
+      <!-- Learn sub-tab -->
+      <div id="fin-learn" style="display:none;">
+        <h2 class="text-lg font-bold text-stone-700 mb-4">🎓 Today's Lesson</h2>
+        <div id="fin-lesson"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6" id="fin-tips"></div>
+        <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+          <p class="text-xs text-amber-700" id="fin-disclaimer"></p>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end tab-finance -->
+
+  <!-- EARNINGS TAB -->
+  <div id="tab-earnings" style="display:none;">
+    <div class="max-w-[1600px] mx-auto px-4 lg:px-6 py-6">
+
+      <!-- Month selector + summary -->
+      <div id="earnings-header" class="mb-6"></div>
+
+      <!-- Monthly breakdown -->
+      <div id="earnings-months"></div>
+
+    </div>
+  </div><!-- end tab-earnings -->
 
   <script src="app.js"></script>
 </body>
