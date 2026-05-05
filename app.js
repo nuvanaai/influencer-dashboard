@@ -666,6 +666,24 @@ function showRemovedDeals() {
   }
 }
 
+const DEFAULT_TAX_RATE = 30;
+
+function getTaxRate() {
+  const v = parseFloat(localStorage.getItem('taxRatePct'));
+  return (isNaN(v) || v < 0 || v > 60) ? DEFAULT_TAX_RATE : v;
+}
+
+function updateTaxRate(value) {
+  const n = parseFloat(value);
+  if (isNaN(n) || n < 0 || n > 60) return;
+  localStorage.setItem('taxRatePct', String(n));
+  renderRevenue();
+}
+
+function isTaxableDeal(d) {
+  return d.type !== 'Gifting' && (d.status === 'confirmed' || d.status === 'pending' || d.status === 'paid');
+}
+
 function renderRevenue() {
   if (!revenueData) return;
 
@@ -677,12 +695,19 @@ function renderRevenue() {
   const gifting = visibleDeals.filter(d => d.type === 'Gifting').reduce((s, d) => s + d.value, 0);
   const pipeline = visibleDeals.reduce((s, d) => s + d.value, 0);
 
+  const taxRate = getTaxRate();
+  const taxableTotal = visibleDeals.filter(isTaxableDeal).reduce((s, d) => s + d.value, 0);
+  const taxToSave = taxableTotal * (taxRate / 100);
+
   document.getElementById('rev-confirmed').textContent = '$' + confirmed.toLocaleString();
   document.getElementById('rev-pending').textContent = '$' + pending.toLocaleString();
   document.getElementById('rev-gifting').textContent = '$' + gifting.toLocaleString();
   document.getElementById('rev-pipeline').textContent = '$' + pipeline.toLocaleString();
   document.getElementById('rev-goal').textContent = '$' + revenueData.monthlyGoal.toLocaleString();
   document.getElementById('rev-bar-goal').textContent = '$' + revenueData.monthlyGoal.toLocaleString();
+  document.getElementById('rev-tax-save').textContent = '$' + Math.round(taxToSave).toLocaleString();
+  const taxRateInput = document.getElementById('rev-tax-rate');
+  if (taxRateInput && document.activeElement !== taxRateInput) taxRateInput.value = taxRate;
 
   const pct = Math.min(100, Math.round(((confirmed + pending) / revenueData.monthlyGoal) * 100));
   document.getElementById('rev-percent').textContent = pct + '%';
@@ -692,10 +717,16 @@ function renderRevenue() {
   const tbody = document.getElementById('rev-table');
   tbody.innerHTML = filtered.map(d => {
     const badge = STATUS_BADGES[d.status] || STATUS_BADGES.outreach;
+    const taxable = isTaxableDeal(d);
+    const dealTax = taxable ? Math.round(d.value * (taxRate / 100)) : 0;
+    const taxCell = taxable
+      ? `<span class="text-sm font-semibold text-rose-500">$${dealTax.toLocaleString()}${d.recurring ? '/mo' : ''}</span>`
+      : `<span class="text-xs text-stone-300">—</span>`;
     return `<tr class="border-b border-stone-50 hover:bg-stone-50 transition-colors">
       <td class="px-5 py-3 text-sm font-medium text-stone-700">${d.brand}</td>
       <td class="px-5 py-3 text-xs text-stone-400">${d.type}${d.recurring ? ' <span class="text-emerald-400">recurring</span>' : ''}</td>
       <td class="px-5 py-3 text-sm font-semibold text-stone-700">$${d.value.toLocaleString()}${d.recurring ? '/mo' : ''}</td>
+      <td class="px-5 py-3">${taxCell}</td>
       <td class="px-5 py-3"><span class="text-xs px-2 py-1 rounded-full ${badge.bg} ${badge.text} font-medium">${badge.label}</span></td>
       <td class="px-5 py-3 text-xs text-stone-400 max-w-xs truncate">${d.notes}</td>
       <td class="px-5 py-3"><button class="text-stone-300 hover:text-rose-400 transition-colors text-lg leading-none" onclick="removeRevenueDeal('${d.id}')" title="Remove deal">&times;</button></td>
